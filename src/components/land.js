@@ -3,10 +3,10 @@ import Auth from './auth'
 
 export default function Land() {
     return (
-      <div>
+      <div className='land' >
         
-        <div>
-          <h1>MARKETFY</h1>
+        <div className='P3 flex'>
+          <h1 className='title' style={{fontSize:"6vw"}}>MARKETFY</h1>
           <h4>Your favorite shopping place</h4>
         </div>
         <Auth></Auth>

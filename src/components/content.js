@@ -20,6 +20,8 @@ const router = createBrowserRouter(
 
 export default function Content() {
   return (
+    <div className="content">
     <RouterProvider router={router}/>
+    </div>
   );
 }
