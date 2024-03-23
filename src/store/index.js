@@ -6,8 +6,8 @@ const authSlice = createSlice({
         auth: false
     }, 
     reducers: {
-        log(state){
-            state.auth=!state.auth;
+        login(state){
+            state.auth=true;
         }
     }
 });

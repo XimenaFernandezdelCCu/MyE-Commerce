@@ -32,19 +32,22 @@ body{
 .flex{
     display: flex;
     align-items: center;
-    /* justify-content: center; */
+}
+
+.content{
+    height: 100vh;
 }
 
 form{
-    display: flex;
-    flex-direction: column;
     background: #F2EEE7;
     padding: 2%;
-    
 }
 
 form label{
     font-weight: bold;
+}
+form small{
+    color: red;
 }
 
 .land{
@@ -53,3 +56,4 @@ form label{
 .auth{
     background-color: white;
 }
+

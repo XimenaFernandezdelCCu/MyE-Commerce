@@ -1,0 +1,87 @@
+[
+    {
+        "title": "Game of Thrones1",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones2",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones3",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones4",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones5",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones6",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones7",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    }
+
+]

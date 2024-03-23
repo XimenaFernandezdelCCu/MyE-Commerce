@@ -1,7 +1,7 @@
 
 export default function Footer({links, section}) {
     return (
-      <div  > 
+      <div className="footer"  > 
       
             <h1>MARKETFY</h1>
        
