@@ -3,6 +3,258 @@
         "title": "Game of Thrones1",
         "author": "George RR Martin", 
         "synapsis": "bla bla bla nlallwj", 
+        "price": 100, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones2",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 90, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones3",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 80, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones4",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 70, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones5",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 60, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones6",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 50, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones7",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 40, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "ximena",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 30, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "una ximena",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 20, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "cuando ximena",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 10, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "lucas",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "ximena y lucas",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "house of leaves",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "frankenstein",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "dune",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "University Physiscs",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "The Shinning",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Pet Sematary",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "JOrge",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones6",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones7",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
+        "price": 222, 
+        "stock": 2, 
+        "image": "", 
+        "status": true,
+        "tags": [
+            "fantasy", "fiction"
+        ]
+    },
+    {
+        "title": "Game of Thrones1",
+        "author": "George RR Martin", 
+        "synapsis": "bla bla bla nlallwj", 
         "price": 222, 
         "stock": 2, 
         "image": "", 
