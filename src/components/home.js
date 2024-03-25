@@ -2,28 +2,33 @@ import { useState } from "react";
 import Card from "./small/card";
 import mockData from '../items.json';
 import Switch from "./small/switch";
+import Modal from "./modal";
 
 export default function Home() {
   let [openSearchDets, setOpenSearchDets] = useState(false);
   let [searchBy, setSearchBy] = useState("name");
-  let [found, setFound] = useState(["true", ""]);
   let [data, setData] = useState(mockData);
-  let [page, setPage] = useState(1);
+  let [found, setFound] = useState(["true",data.length]);
+  let [showModal, setShowModal] = useState(false);
+  
+  let [page, setPage] = useState(0);
   const pages = Array.from({ length: Math.ceil(data.length/9) }, (_, index) => index + 1);
   
+  console.log("--------------state: "); 
+  console.log("search by: ", searchBy)
+  console.log("found: ", found)
+  console.log("data: ",  data)
+  console.log("page: ", page)
+  console.log("modal: ", showModal)
+
   const paginationArray = (data)=>{
     let arr=[];
     for (let i=0; i<Math.ceil(data.length/9); i++){
-      console.log(i);
       let it = data.slice((i*9),(i*9+9));
       arr.push(it);
     }
     return arr;
   };
-  // let [data, setData] = useState(paginationArray(mockData));
-  // const pages = Array.from({ length: Math.ceil(data.length/9) }, (_, index) => index + 1);
-
-  
 
   const handleToggle = ()=>{
     console.log("switch!")
@@ -33,7 +38,9 @@ export default function Home() {
   const handleSearch = (event) =>{
     event.preventDefault();
     let search =event.target[0].value;
+    setPage(0);
     getItems(search, searchBy);
+    // search = "";
   }
 
   const getItems =(search, searchby)=>{
@@ -55,10 +62,8 @@ export default function Home() {
           return item.price < search;
         })
       }
-      console.log(filteredData);
-      console.log(filteredData.length);
         if(filteredData.length<1){
-          setFound(false,0);
+          setFound([false,0]);
         } else {
           setFound([true,filteredData.length]);
           console.log("found: ",found);
@@ -71,6 +76,8 @@ export default function Home() {
 
   return (
     <div className='home'>
+      {showModal ? <Modal clickBackdrop={()=>setShowModal(false)}></Modal>: ""}
+      
       <h1>THIS IS HOME</h1>
       <div className="flex">
         <div style={{backgroundColor:"red"}}>
@@ -115,13 +122,15 @@ export default function Home() {
         
 
         <div className="found flex P3">
-          {!found ? <div>
+          {!found[0] ? <div>
             <h2>Uh oh!</h2>
             <h4>Your search didn't match any items.<br/> Please try again. </h4>
           </div>
           :
           paginationArray(data)[page].map((book, index)=>
-            <Card title={book.title} author={book.author} key={index} ></Card>
+            <Card onClick={()=>setShowModal(true)}
+            title={book.title}
+            author={book.author} key={index} ></Card>
           )}
           
           
