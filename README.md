@@ -7,8 +7,8 @@
 
 ## Missing REQUIRED:
 
-* pagination 
-* more details modal 
+
+ 
 * shopping cart:
     * button component 
     * cart page
@@ -33,3 +33,8 @@
 * sort 
 * check form info for login 
 * Filter 
+
+[
+    itemKey:
+    qty:
+]

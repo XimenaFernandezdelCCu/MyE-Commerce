@@ -1,7 +1,7 @@
 
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../store";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import SignupForm from "./small/signupForm";
 
@@ -13,8 +13,9 @@ export default function Auth({handleEmailValidation, validMail}) {
 
   // ------------redux
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.auth);
+  // ------router
+  const navigate = useNavigate();
 
   var type = login ? "Login": "Signup";
 

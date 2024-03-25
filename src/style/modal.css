@@ -18,10 +18,14 @@
     overflow: hidden;
     background-color: white;
     display: grid;
-    grid-template-rows: 7% 70% 30%;
+    grid-template-rows: 5% 95%;
 }
 
-
+.modalcontent{
+    display: grid;
+    grid-template-rows: 80% 20%;
+    /* background-color: blue; */
+}
 
 .modalinfo{
     display: grid;
@@ -31,4 +35,24 @@
 .modala{
     grid-column-start:2;
     grid-column-end: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.modalimg{
+
+}
+
+.modalb{
+    padding: 7%;
+
+}
+
+.modalbtns{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

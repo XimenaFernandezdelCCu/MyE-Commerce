@@ -9,17 +9,21 @@ export default function Home() {
   let [searchBy, setSearchBy] = useState("name");
   let [data, setData] = useState(mockData);
   let [found, setFound] = useState(["true",data.length]);
-  let [showModal, setShowModal] = useState(false);
+
+
+
+
+  let [showModal, setShowModal] = useState([false, ""]);
   
   let [page, setPage] = useState(0);
   const pages = Array.from({ length: Math.ceil(data.length/9) }, (_, index) => index + 1);
-  
+
   console.log("--------------state: "); 
   console.log("search by: ", searchBy)
   console.log("found: ", found)
   console.log("data: ",  data)
   console.log("page: ", page)
-  console.log("modal: ", showModal)
+  console.log("modal: ", showModal[0])
 
   const paginationArray = (data)=>{
     let arr=[];
@@ -40,7 +44,6 @@ export default function Home() {
     let search =event.target[0].value;
     setPage(0);
     getItems(search, searchBy);
-    // search = "";
   }
 
   const getItems =(search, searchby)=>{
@@ -56,7 +59,6 @@ export default function Home() {
           return item.title.toLowerCase().replace(/\s+/g, '').includes(search);
         })
       } else {
-        console.log("search by price");
         search = search.replace(/\D/g, "");
         filteredData = mockData.filter((item)=>{
           return item.price < search;
@@ -73,24 +75,31 @@ export default function Home() {
 
   }
 
+  const modalInfo =(event)=>{
+
+  }
+
 
   return (
     <div className='home'>
-      {showModal ? <Modal clickBackdrop={()=>setShowModal(false)}></Modal>: ""}
+      {showModal[0] ? <Modal modalinfo={showModal[1]} clickBackdrop={()=>{setShowModal([false, ""])}} ></Modal>: ""}
       
-      <h1>THIS IS HOME</h1>
-      <div className="flex">
-        <div style={{backgroundColor:"red"}}>
+      <div className="flex browse">
+
+        <div className="flex">
           <h3>Search by:</h3>
           <Switch title={searchBy} onChange={handleToggle} ></Switch>
         </div>
+
         <form onSubmit={handleSearch} >
           <input type="text" id="itemSeach"></input>
           <button type="submit" htmlFor="itemSearch" >lupa</button>
         </form>
+
         <input onClick={()=>setOpenSearchDets(!openSearchDets)} 
           type="checkbox" id="sort"></input>
           <label htmlFor="sort" >Filter / Sort</label>
+
       </div>
       {openSearchDets ? 
         <div className="flex">
@@ -121,14 +130,15 @@ export default function Home() {
         </div>
         
 
-        <div className="found flex P3">
+        <div className="found flex P3 rsquare">
           {!found[0] ? <div>
             <h2>Uh oh!</h2>
             <h4>Your search didn't match any items.<br/> Please try again. </h4>
           </div>
           :
           paginationArray(data)[page].map((book, index)=>
-            <Card onClick={()=>setShowModal(true)}
+            <Card onClick={(event)=>{setShowModal([true, paginationArray(data)[page][index]]);}}
+            Pk={book.pk}
             title={book.title}
             author={book.author} key={index} ></Card>
           )}
