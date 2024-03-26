@@ -55,6 +55,7 @@ form small{
 }
 .auth{
     background-color: white;
+    justify-content:space-evenly;
 }
 
 .found{
@@ -109,4 +110,69 @@ img{
     opacity: 0.55;
 }
 
+.circular{
+    border-radius: 50%;
+}
 
+button{
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+}
+
+.pill{
+   background-color: #cc8245;
+    border-radius: 60px ;
+    border: none;
+    border-radius: 60px;
+    padding: .5rem 1rem;
+    margin: 1%;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    box-shadow: 0 4px 8px 0 rgba(230, 229, 229, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-weight: bold;
+}
+
+button:hover{
+    /* box-shadow: none; */
+    color: var(--orange);
+}
+
+.hidSec{
+    background: #F2EEE7;
+    margin: 2%;
+    padding: 2%;
+    border-radius: 25px;
+
+
+}
+
+.profileInfo{
+    background: #F2EEE7;
+    margin: 2%;
+    padding: 2%;
+    border-radius: 25px;
+}
+
+.profileInfoItem{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
+}
+
+.profileHeader{
+    display: grid;
+    grid-template-columns:30% 60%;
+    grid-template-rows: 45% 45%;
+    gap:10%;
+    align-items:end;
+    justify-content:space-around;
+}
+
+.profileImg{
+    grid-row-start:1 ;
+    grid-row-end:3 ;
+}
+
+#loginForm{
+    padding: 10%;
+}

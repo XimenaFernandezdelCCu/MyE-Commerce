@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { addItem2Cart, removeItemFromCart } from "../utils";
 
-import mockData from '../items.json';
+import mockData from '../mockData/items.json';
 
 export default function Cart() {
 

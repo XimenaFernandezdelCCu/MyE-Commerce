@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Card from "./small/card";
-import mockData from '../items.json';
+import mockData from '../mockData/items.json';
 import Switch from "./small/switch";
 import Modal from "./modal";
+import HiddenSec from "./small/hiddenSec";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -73,7 +74,7 @@ export default function Home() {
       {showModal[0] ? <Modal modalinfo={showModal[1]} clickBackdrop={()=>{setShowModal([false, ""])}} ></Modal>: ""}
       
       <button onClick={()=>{navigate('/cart');}} 
-      >KILL ME PLEASE</button>
+      >CART</button>
 
       <div className="flex browse">
 
@@ -92,18 +93,18 @@ export default function Home() {
           <label htmlFor="sort" >Filter / Sort</label>
 
       </div>
-      {openSearchDets ? 
+
+      <HiddenSec state={openSearchDets}>
         <div className="flex">
           <div>
-            <h4>Filter</h4>
+            <h4>Filter -----------</h4>
           </div>
           <div>
             <h4>Sort</h4>
           </div>
         </div> 
-        :
-        <div></div> 
-      }
+      </HiddenSec>
+     
 
       <div>
         <div>
@@ -111,12 +112,15 @@ export default function Home() {
           <h4>Options</h4> */}
           <h4>Found:{found[1]} </h4>
           <div>
-            <button>P</button>
+            <button className="circular">P</button>
             { 
               pages.map((page)=>
-              <button key={page} onClick={()=>{setPage(page-1)}} >{page}</button>
+              <button 
+                key={page} 
+                onClick={()=>{setPage(page-1)}} 
+                className="circular">{page}</button>
             )}
-            <button>N</button>
+            <button className="circular">N</button>
           </div>
         </div>
         

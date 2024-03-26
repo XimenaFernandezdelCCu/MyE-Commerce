@@ -1,13 +1,35 @@
 import {createSlice, configureStore} from '@reduxjs/toolkit'
 
+// initialState: {
+//     auth: false, 
+//     userDetails: {
+//         first: "",
+//         last: "", 
+//         preferred: null, 
+//         email: "", 
+//         bio: null, 
+//         tags: [],
+//         pk: 1
+//     }
+
 const authSlice = createSlice({
     name: 'auth', 
     initialState: {
-        auth: false
+        auth: false, 
+        userDetails: {
+            first: "",
+            preferred: null, 
+            pk: 0
+        }
     }, 
     reducers: {
-        login(state){
+        login(state, action){
+            const {pk, first, preferred} = action.payload;
+            console.log("--------", pk, first, preferred)
             state.auth=true;
+            state.userDetails.pk = pk;
+            state.userDetails.first = first;
+            state.userDetails.preferred = preferred;
         }, 
         logout(state){
             state.auth=false;

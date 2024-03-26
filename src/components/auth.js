@@ -4,41 +4,48 @@ import { authActions } from "../store";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import SignupForm from "./small/signupForm";
+import usersData from "../mockData/users.json"
+import { handleValidInputs } from "../utils";
 
 
-export default function Auth({handleEmailValidation, validMail}) {
+export default function Auth( ) {
 
   let [login, setLogin] = useState(true);
-  let [validpass, setValidpass] = useState(true);
-
+  const [valid, setValid] = useState({mail:null});
+  const [userFound, setUserFound]=useState(null);
   // ------------redux
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth.auth);
+  const authState = useSelector((state) => state.auth);
   // ------router
   const navigate = useNavigate();
-
   var type = login ? "Login": "Signup";
+  const allow = Object.values(valid).every((value) => value === true);
 
   const handleLogin = (event)=>{
     event.preventDefault();
-    console.log("------------", auth);
-    dispatch(authActions.login());
-    navigate('/home');
-  }
+    console.log("------------", authState);
+    const userMail = event.target.children[2].value;
+    const userCont = event.target.children[8].value;
+    console.log("ented: ", userMail, userCont);
+    const userDetails = usersData.find((user)=>user.email === userMail && user.pass === userCont);
+    console.log("found user: ", userDetails);
 
-  const handleValidation2 =(event)=>{
-    setValidpass(false);
-     if (event.target.value.length<1){
-      setValidpass(false);
-      console.log("hereeee")
-     } else {
-      setValidpass(true);
-     }
+    if(!userMail || !userCont || !userDetails){
+      setUserFound(false);
+    } else{
+      console.log("***",userDetails.pk, userDetails.first, userDetails.preferred )
+      const payload = {
+      pk: userDetails.pk, 
+      first: userDetails.first, 
+      preferred: userDetails.preferred
+      }
+      dispatch(authActions.login(payload));
+      navigate('/home');
+    }
   }
 
   return (
     <div className="P3 auth flex" >
-      {/* <button onClick={handleLog} >Auth</button>aaa - {`My name is ${auth}!`} */}
 
       {/* <div> */}
         <div>
@@ -50,19 +57,21 @@ export default function Auth({handleEmailValidation, validMail}) {
       
         
           {!login ? <SignupForm login={login} setLogin={setLogin} ></SignupForm> :
-          <div>
-            <form>
-                <label htmlFor="loginEmail" >Email</label>
+          <div className="P3" style={{minWidth: "50%"}} >
+            <form id="loginForm" onSubmit={handleLogin} >
+                <label htmlFor="loginEmail" >Email</label><br/>
                 <input id="loginEmail" type="email"
-                onBlur={handleEmailValidation}></input>
-                <small>{validMail?"":"Please provide a valid emal."}</small>
+                onBlur={(event)=>handleValidInputs(event, "mail", setValid)}></input><br/>
+                <small>{valid.mail==false?"Please provide a valid emal.":""}</small><br/>
 
-                <label htmlFor="loginPassword">Password</label>
+                <label htmlFor="loginPassword">Password</label><br/>
                 <input id="loginPassword"
-                onBlur={handleValidation2} ></input>
-                <small>{validpass?"":"Please enter your password."}</small>
+                onBlur={(event)=>handleValidInputs(event, "pass", setValid)} ></input><br/>
+                <small>{valid.pass==false?"Please enter your password.":""}</small><br/>
 
-                <button onClick={handleLogin} >Login</button>
+                <small>{userFound==false?"We couldn't find this user, please rectify the information or create an account.":""}</small><br/>
+
+                <button  type="submit" htmlFor="loginForm" disabled={!allow}>Login</button>
             </form>
             <h4>{`${login ? "Don't":"Already"} have an account?`}</h4>
             <button onClick={()=>{setLogin(!login)}}>{login ? "Sign Up" : "Log In"}</button>

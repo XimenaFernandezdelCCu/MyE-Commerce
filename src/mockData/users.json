@@ -1,0 +1,46 @@
+[
+    {
+        "first": "Ximena",
+        "last": "Cu", 
+        "preferred": "Xim", 
+        "email": "xim@mail.com", 
+        "pass": "a",
+        "bio": "bla bla bla bla", 
+        "tags": [
+            "fantasy", "fiction", "horror"
+        ],
+        "pk": 1
+    },
+    {
+        "first": "Lucas",
+        "last": "Cu", 
+        "preferred": null, 
+        "email": "luc@mail.com", 
+        "pass": "a",
+        "bio": null, 
+        "tags": [],
+        "pk": 2
+    },
+    {
+        "first": "Mateo",
+        "last": "Cu", 
+        "preferred": null, 
+        "email": "matt@mail.com", 
+        "pass": "a",
+        "bio": null, 
+        "tags": [],
+        "pk": 3
+    },
+    {
+        "first": "Jorge",
+        "last": "Cu", 
+        "preferred": "Xim", 
+        "email": "jor@mail.com", 
+        "pass": "a",
+        "bio": "bla bla bla bla", 
+        "tags": [
+            "fantasy", "fiction", "horror"
+        ],
+        "pk": 4
+    }
+]
