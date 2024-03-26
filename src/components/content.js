@@ -5,6 +5,7 @@ import Home from './home';
 import Profile from './profile';
 import Cart from './cart';
 import Checkout from './checkout';
+import Header from './header'
 
 const router = createBrowserRouter(
   [{path: '/', element: <Land/>},
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
 
 
 export default function Content() {
+
   return (
     <div className="content">
     <RouterProvider router={router}/>

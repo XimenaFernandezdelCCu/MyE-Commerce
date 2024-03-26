@@ -1,6 +1,11 @@
 import '../style/modal.css'
+import { addItem2Cart, removeItemFromCart } from "../utils";
+import { useDispatch } from "react-redux";
+
 
 export default function Modal ({clickBackdrop, modalinfo}) {
+    const dispatch = useDispatch();
+
     return (
         <div className="backdrop" onClick={clickBackdrop} >
             <div className="modal" >
@@ -24,7 +29,7 @@ export default function Modal ({clickBackdrop, modalinfo}) {
                     </div>
 
                     <div className='modalbtns' >
-                        <button>Add to Cart</button>
+                        <button onClick={()=>{addItem2Cart(dispatch, modalinfo.pk)}}>Add to Cart</button>
                         <button>See All Details</button>
                     </div>
                 </div>

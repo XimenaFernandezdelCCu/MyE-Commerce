@@ -3,6 +3,8 @@ import Card from "./small/card";
 import mockData from '../items.json';
 import Switch from "./small/switch";
 import Modal from "./modal";
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Home() {
   let [openSearchDets, setOpenSearchDets] = useState(false);
@@ -12,13 +14,10 @@ export default function Home() {
   let [showModal, setShowModal] = useState([false, ""]);
   let [page, setPage] = useState(0);
   const pages = Array.from({ length: Math.ceil(data.length/9) }, (_, index) => index + 1);
+  
+  const navigate = useNavigate();
 
-  // console.log("--------------state: "); 
-  // console.log("search by: ", searchBy)
-  // console.log("found: ", found)
-  // console.log("data: ",  data)
-  // console.log("page: ", page)
-  // console.log("modal: ", showModal[0])
+
 
   const paginationArray = (data)=>{
     let arr=[];
@@ -73,6 +72,9 @@ export default function Home() {
     <div className='home'>
       {showModal[0] ? <Modal modalinfo={showModal[1]} clickBackdrop={()=>{setShowModal([false, ""])}} ></Modal>: ""}
       
+      <button onClick={()=>{navigate('/cart');}} 
+      >KILL ME PLEASE</button>
+
       <div className="flex browse">
 
         <div className="flex">
@@ -112,7 +114,7 @@ export default function Home() {
             <button>P</button>
             { 
               pages.map((page)=>
-              <button key={page} onClick={()=>{setPage(page-1); console.log(page)}} >{page}</button>
+              <button key={page} onClick={()=>{setPage(page-1)}} >{page}</button>
             )}
             <button>N</button>
           </div>
@@ -126,7 +128,7 @@ export default function Home() {
           </div>
           :
           paginationArray(data)[page].map((book, index)=>
-            <Card onClick={(event)=>{setShowModal([true, paginationArray(data)[page][index]]); console.log(paginationArray(data)[page][index])}}
+            <Card onClick={(event)=>{setShowModal([true, paginationArray(data)[page][index]])}}
             Pk={book.pk}
             title={book.title}
             author={book.author} key={index} ></Card>
