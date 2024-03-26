@@ -18,24 +18,35 @@ const authSlice = createSlice({
 const cartSlice = createSlice({
     name: 'cart', 
     initialState:{
-        cartItems: ["hi"], 
+        cartItems: [], 
         total: 0
     }, 
     reducers: {
-        add2Cart(state){
-            // state.cart.cartItems.push(itemKey);
-            console.log(state.cartItems);
+        // increaseQty(state, action){
+        //     state.cartItems.find((item)=>{
+               
+        //     })
+        // },
+        add2Cart(state, action){
+            const existingItem = state.cartItems.find((item)=>item.id == action.payload);
+            if(!existingItem){
+                state.cartItems.push({id: action.payload, qty: 1})
+            } else {
+                existingItem.qty++;
+            }
         }, 
-        removeFromCart(state, itemKey){
-            state.cart.cartItems = state.cart.cartItems.filter((item)=>{
-                return (item.itemKey!=itemKey);
-            })
-        },
-        increaseQty(state, itemKey){
-            state.cart.cartItems.find((item)=>{
-                return item.itemKey === itemKey
-            }).qty = 10;
+        removeFromCart(state, action){
+            const existingItem = state.cartItems.find((item)=>item.id == action.payload);
+            if(existingItem){
+                if(existingItem.qty <= 1 || !existingItem.qty){
+                    state.cartItems = state.cartItems.filter((item)=>item.id!=action.payload)
+                } else {
+                    existingItem.qty--;
+                }
+                
+            } 
         }
+        
     }
 })
 

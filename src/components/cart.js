@@ -9,23 +9,16 @@ export default function Cart() {
   // ------------redux
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const itemKey = 3;
-
-  function trial(){
-    console.log(">----------------")
-    // console.log("state: ", state)
-    console.log(cart.cartItems);
-    dispatch(cartActions.add2Cart());
-    // console.log(cart);
-    console.log("----------------<")
-  };
-  trial();
-
 
   const name = "Ximena";
   
   const qty = 1;
-  console.log(someItems)
+
+  const cartData = ()=>{
+    console.log(cart.cartItems);
+    const data = cart.cartItems.map((key)=>{mockData.find((book)=>book.pk == key)})
+    console.log("data: ",data);
+  }
   
 
   return (
@@ -50,7 +43,7 @@ export default function Cart() {
       </div>
       <hr></hr>
       <h3>Total: number </h3>
-      <button>Checkout</button>
+      <button onClick={cartData} >Checkout</button>
       
     </div>
   );

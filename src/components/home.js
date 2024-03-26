@@ -9,21 +9,16 @@ export default function Home() {
   let [searchBy, setSearchBy] = useState("name");
   let [data, setData] = useState(mockData);
   let [found, setFound] = useState(["true",data.length]);
-
-
-
-
   let [showModal, setShowModal] = useState([false, ""]);
-  
   let [page, setPage] = useState(0);
   const pages = Array.from({ length: Math.ceil(data.length/9) }, (_, index) => index + 1);
 
-  console.log("--------------state: "); 
-  console.log("search by: ", searchBy)
-  console.log("found: ", found)
-  console.log("data: ",  data)
-  console.log("page: ", page)
-  console.log("modal: ", showModal[0])
+  // console.log("--------------state: "); 
+  // console.log("search by: ", searchBy)
+  // console.log("found: ", found)
+  // console.log("data: ",  data)
+  // console.log("page: ", page)
+  // console.log("modal: ", showModal[0])
 
   const paginationArray = (data)=>{
     let arr=[];
@@ -35,7 +30,6 @@ export default function Home() {
   };
 
   const handleToggle = ()=>{
-    console.log("switch!")
     setSearchBy((current)=>(current ==="name" ? "price" : "name"))
   }
 
@@ -74,11 +68,6 @@ export default function Home() {
     }
 
   }
-
-  const modalInfo =(event)=>{
-
-  }
-
 
   return (
     <div className='home'>
@@ -137,7 +126,7 @@ export default function Home() {
           </div>
           :
           paginationArray(data)[page].map((book, index)=>
-            <Card onClick={(event)=>{setShowModal([true, paginationArray(data)[page][index]]);}}
+            <Card onClick={(event)=>{setShowModal([true, paginationArray(data)[page][index]]); console.log(paginationArray(data)[page][index])}}
             Pk={book.pk}
             title={book.title}
             author={book.author} key={index} ></Card>
