@@ -20,10 +20,10 @@
   .react-switch-label .react-switch-button {
     content: '';
     position: absolute;
-    top: 2px;
-    left: 2px;
+    top: 5px;
+    left: 3px;
     width: 45px;
-    height: 45px;
+    height: 60%;
     border-radius: 45px;
     transition: 0.2s;
     background: #fff;
@@ -39,7 +39,7 @@
   }
   
   .react-switch-checkbox:checked + .react-switch-label .react-switch-button {
-    left: calc(100% - 2px);
+    left: calc(100% - 3px);
     transform: translateX(-100%);
   }
 

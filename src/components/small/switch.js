@@ -13,6 +13,10 @@ const Switch = ({title, onChange}) => {
         <label
             className="react-switch-label"
             htmlFor={`react-switch-new`}
+            style={{
+              height:"60%", 
+              marginLeft: "1%"
+          }}
             >
             <span className="react-switch-label-text">{title}</span>
             <span className={`react-switch-button`} />

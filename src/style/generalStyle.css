@@ -20,6 +20,7 @@
     
 }
 
+
 .title{
     font-family: var(--title);
 }
@@ -27,6 +28,11 @@
 .flex{
     display: flex;
     align-items: center;
+}
+.flexcol{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 /* --------------------------------- */
 * {
@@ -40,7 +46,6 @@ body{
 
 
 form{
-    background: #F2EEE7;
     padding: 2%;
 }
 
@@ -49,6 +54,14 @@ form label{
 }
 form small{
     color: red;
+}
+
+input{
+    border-radius: 60px ;
+    
+    border-color: var(--orange);
+    border-width: 3px;
+    padding: 2.5% 0%;padding-left: 3%;
 }
 
 .land{
@@ -61,15 +74,28 @@ form small{
 
 .found{
     flex-wrap: wrap;
+    justify-content: space-evenly;
     background-color: var(--headerGrey);
     
 }
 
-.card{
+/* .card{
     width: 30vw;
     height: 30vh;
     margin: 1% .5% ;
     background-color: var(--headerGrey);
+} */
+.card{
+    border-color: #cc8245;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 1% 2%;
+    max-width: 20%;
+    max-height: 50vh;
+}
+.card img{
+    height: 50%;
 }
 
 
@@ -80,9 +106,10 @@ form small{
 }
 
 img{
-    object-fit: contain;
+   max-height: 30%; 
     max-width: 100%;
-    max-height: 60%;
+   
+   object-fit: contain;
 }
 
 .fit{
@@ -90,13 +117,14 @@ img{
     height: 100%;
 }
 
-.browse{
+.searchbar{
     background: #F2EEE7;
-    margin: 2%;
-    padding: 2%;
-    border-radius: 25px;
-
-
+    margin: 2% 10%;
+    /* padding: 1%; */
+    border-radius: 60px;
+    justify-content: center;
+    /* align-content: stretch;
+    flex-wrap: wrap; */
 }
 
 .rsquare{
@@ -199,4 +227,11 @@ button:hover{
 #editPersonalInfo{
     display: flex;
     flex-direction:column ;
+}
+
+.browse h4{
+    margin: 0 2%;
+}
+.green{
+    background-color: #8eaf67;
 }

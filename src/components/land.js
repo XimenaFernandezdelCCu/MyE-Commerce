@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Auth from './auth'
+import Auth from './small/auth'
 
 export default function Land() {
   return (

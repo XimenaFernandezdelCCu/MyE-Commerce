@@ -1,46 +1,17 @@
 import { useState } from "react";
-import Card from "./small/card";
 import mockData from '../mockData/items.json';
-import Switch from "./small/switch";
-import Modal from "./modal";
-import HiddenSec from "./small/hiddenSec";
-import { useNavigate } from 'react-router-dom';
-
+import Modal from "./small/modal";
+import Browse from "./small/browse";
+import { paginationArray, addItem2Cart } from "../utils";
+import { useDispatch } from "react-redux";
+import { cartActions, wishActions } from "../store";
 
 export default function Home() {
-  let [openSearchDets, setOpenSearchDets] = useState(false);
-  let [searchBy, setSearchBy] = useState("name");
+
   let [data, setData] = useState(mockData);
   let [found, setFound] = useState(["true",data.length]);
   let [showModal, setShowModal] = useState([false, ""]);
-  let [page, setPage] = useState(0);
-  const pages = Array.from({ length: Math.ceil(data.length/9) }, (_, index) => index + 1);
-  
-  const navigate = useNavigate();
-
-
-  // creates an array to handle pagination
-  const paginationArray = (data)=>{
-    let arr=[];
-    for (let i=0; i<Math.ceil(data.length/9); i++){
-      let it = data.slice((i*9),(i*9+9));
-      arr.push(it);
-    }
-    return arr;
-  };
-
-
-  const handleToggle = ()=>{
-    setSearchBy((current)=>(current ==="name" ? "price" : "name"))
-  }
-
-
-  const handleSearch = (event) =>{
-    event.preventDefault();
-    let search =event.target[0].value;
-    setPage(0);
-    getItems(search, searchBy);
-  }
+  const dispatch = useDispatch();
 
   // sets the data state variable to the items in the db that match the provided search
    const getItems =(search, searchby)=>{
@@ -74,75 +45,43 @@ export default function Home() {
 
   return (
     <div className='home'>
-      {showModal[0] ? <Modal modalinfo={showModal[1]} clickBackdrop={()=>{setShowModal([false, ""])}} ></Modal>: ""}
+      {showModal[0] ? 
+        <Modal clickBackdrop={()=>{setShowModal([false, ""])}} >
+
+          <div className='modalcontent' >
+            <div className='modalinfo' >
+                <div className='modala'>
+                    <img className='modalimg' src="https://i.pinimg.com/564x/f2/bb/6c/f2bb6c4da29b8f45b6a1773816382972.jpg" ></img>
+                    <h3>{showModal[1].price} $</h3>
+                    <button 
+                    className="green pill" 
+                    onClick={()=>{dispatch(wishActions.add2Wishlist(showModal[1].pk))}}
+                    >wish</button>
+                </div>
+                <div className='modalb'>
+                    <h1>{showModal[1].title}</h1>
+                    <h3>{showModal[1].author}</h3>
+                    <p>{showModal[1].synapsis}</p>
+                    <h2>Current stock: {showModal[1].stock}</h2>
+                    
+
+                </div>
+            </div>
+
+            <div className='modalbtns' >
+                <button onClick={()=>{dispatch(cartActions.add2Cart(showModal[1].pk))}}
+                className="pill"
+                >Add to Cart</button>
+                <button className="pill"
+                style={{backgroundColor: "white" }}
+                >See All Details</button>
+            </div>
+          </div>
+
+        </Modal> : ""}
       
-      <div className="flex browse">
-
-        <div className="flex ">
-          <h3>Search by: </h3>
-          <Switch title={searchBy} onChange={handleToggle} ></Switch>
-        </div>
-
-        <form onSubmit={handleSearch} >
-          <input type="text" id="itemSeach"></input>
-          <button type="submit" htmlFor="itemSearch" >lupa</button>
-        </form>
-
-        <input onClick={()=>setOpenSearchDets(!openSearchDets)} 
-          type="checkbox" id="sort"></input>
-          <label htmlFor="sort" >Filter / Sort</label>
-
-      </div>
-
-      <HiddenSec state={openSearchDets}>
-        <div className="flex">
-          <div>
-            <h4>Filter -----------</h4>
-          </div>
-          <div>
-            <h4>Sort</h4>
-          </div>
-        </div> 
-      </HiddenSec>
-     
-
-      <div>
-        <div>
-          {/* <h4>Search:</h4>
-          <h4>Options</h4> */}
-          <h4>Found: {found[1]} </h4>
-          <div>
-            <button className="circular">P</button>
-            { 
-              pages.map((page)=>
-              <button 
-                key={page} 
-                onClick={()=>{setPage(page-1)}} 
-                className="circular">{page}</button>
-            )}
-            <button className="circular">N</button>
-          </div>
-        </div>
-        
-
-        <div className="found flex P3 rsquare">
-          {!found[0] ? <div>
-            <h2>Uh oh!</h2>
-            <h4>Your search didn't match any items.<br/> Please try again. </h4>
-          </div>
-          :
-          paginationArray(data)[page].map((book, index)=>
-            <Card onClick={(event)=>{setShowModal([true, paginationArray(data)[page][index]])}}
-            Pk={book.pk}
-            title={book.title}
-            author={book.author} key={index} ></Card>
-          )}
-          
-          
-
-        </div>
-      </div>
-
+      <Browse getItems={getItems} data={data} found={found} setShowModal={setShowModal} ></Browse>
+  
     </div>
   )
 };

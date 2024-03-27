@@ -1,15 +1,11 @@
 import { cartActions } from "./store";
 
 export function addItem2Cart (dispatch, Pk) {
-    console.log("cartttttttt");
-    console.log(Pk)
     dispatch(cartActions.add2Cart(Pk));
 
 };
 
 export function removeItemFromCart (dispatch, params){
-    console.log(" no cartttttttt");
-    console.log(params)
     dispatch(cartActions.removeFromCart(params));
 };
 
@@ -37,5 +33,14 @@ export function handleValidInputs (event, type, setValid) {
     }
 }
 
+// -----------------------------------
 
-
+// creates an array to handle pagination
+export function paginationArray (data) {
+    let arr=[];
+    for (let i=0; i<Math.ceil(data.length/9); i++){
+        let it = data.slice((i*9),(i*9+9));
+        arr.push(it);
+    }
+    return arr;
+};

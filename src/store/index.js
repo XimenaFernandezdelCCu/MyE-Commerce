@@ -33,6 +33,7 @@ const authSlice = createSlice({
     }
 });
 
+// need to remove total from cartSlice, it is never used. 
 const cartSlice = createSlice({
     name: 'cart', 
     initialState:{
@@ -40,11 +41,6 @@ const cartSlice = createSlice({
         total: 0
     }, 
     reducers: {
-        // increaseQty(state, action){
-        //     state.cartItems.find((item)=>{
-               
-        //     })
-        // },
         add2Cart(state, action){
             const existingItem = state.cartItems.find((item)=>item.id == action.payload);
             if(!existingItem){
@@ -68,13 +64,32 @@ const cartSlice = createSlice({
     }
 })
 
+const wishSlice = createSlice({
+    name: 'wish', 
+    initialState: [1,2,3], 
+    reducers: {
+        // Meant to receive only the key for the item. 
+        add2Wishlist(state, action){
+            state.push(action.payload)
+        }, 
+        removeFromWishlist(state, action){
+            const existingItem = state.find((item)=>item == action.payload);
+            if(existingItem){
+                state = state.filter((item)=>item!=action.payload)
+            }
+        }
+    }
+})
+
 const store = configureStore({
     reducer: {
         auth: authSlice.reducer, 
-        cart: cartSlice.reducer
+        cart: cartSlice.reducer, 
+        wish: wishSlice.reducer
     }
 })
 
 export const authActions = authSlice.actions;
 export const cartActions = cartSlice.actions;
+export const wishActions = wishSlice.actions;
 export default store;

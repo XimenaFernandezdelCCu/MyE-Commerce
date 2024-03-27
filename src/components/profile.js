@@ -2,25 +2,21 @@ import { useState } from "react";
 import HiddenSec from "./small/hiddenSec";
 import ProfileInfo from "./small/profileInfo";
 import ProfileInfoCopy from "./small/profileInfoCopy";
-import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../store";
+import { useSelector } from "react-redux";
 import users from '../mockData/users.json'
+import Wishlist from "./small/wishlist";
 
 
 
 export default function Profile() {
   const [option, setOption]=useState("info");
-  const dispatch = useDispatch();
 
   const authState = useSelector((state) => state.auth);
+
+  // PROVISIONAL:
   const user = authState.userDetails.pk == 0 ? users[1] : authState.userDetails;
-
+  
   const pref = user.preferred ? user.preferred : user.first; 
-
-  const handleEditInfo =(event)=>{
-    event.preventDefault();
-    // setOption("info");
-  }
 
   const name ="ximena";
     return (
@@ -46,17 +42,19 @@ export default function Profile() {
             style={{alignSelf:"center"}}>Edit my Info</button>
             <button onClick={()=>setOption("orders")}
             className="pill">See Orders</button>
-            <button onClick={()=>setOption("whish")} 
-            className="pill">Whishlist</button>
+            {/* <button onClick={()=>setOption("info")} 
+            className="pill">Whishlist</button> */}
             
           </ul>
 
           <HiddenSec state={option}>
             {option == "info" ? <ProfileInfo user={user} ></ProfileInfo> : 
-              option == "edit" ? <ProfileInfoCopy setOption={setOption} ></ProfileInfoCopy> : <h1>AHHHHH</h1> 
+              option == "edit" ? <ProfileInfoCopy setOption={setOption} ></ProfileInfoCopy> : <h1>Orders</h1> 
             }
           </HiddenSec>
         </div>
+
+        <Wishlist></Wishlist>
 
       </div>
     );

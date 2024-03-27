@@ -16,9 +16,10 @@
     height: 65%;
     z-index: 100;
     overflow: hidden;
-    background-color: white;
+    background-color: #F2EEE7;
     display: grid;
     grid-template-rows: 5% 95%;
+    grid-template-columns: 98% 2%;
 }
 
 .modalcontent{
@@ -42,17 +43,22 @@
 
 }
 
-.modalimg{
-
-}
-
 .modalb{
     padding: 7%;
-
 }
 
 .modalbtns{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.x{
+    grid-column-start: 2;
+    grid-column-end: 3;
+
+}
+
+.modal img{
+    max-height: 40vh;
+    height: 70%;
 }
