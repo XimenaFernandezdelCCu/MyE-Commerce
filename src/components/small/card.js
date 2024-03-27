@@ -5,7 +5,7 @@ import { addItem2Cart, removeItemFromCart } from "../../utils";
 export default function Card({title,author, onClick, Pk}) {
   // ------------redux
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
+  // const cart = useSelector((state) => state.cart);
   
     return (
       <div   id={Pk} >

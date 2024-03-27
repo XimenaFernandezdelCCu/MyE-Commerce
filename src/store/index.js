@@ -1,16 +1,6 @@
 import {createSlice, configureStore} from '@reduxjs/toolkit'
 
-// initialState: {
-//     auth: false, 
-//     userDetails: {
-//         first: "",
-//         last: "", 
-//         preferred: null, 
-//         email: "", 
-//         bio: null, 
-//         tags: [],
-//         pk: 1
-//     }
+
 
 const authSlice = createSlice({
     name: 'auth', 
@@ -18,21 +8,27 @@ const authSlice = createSlice({
         auth: false, 
         userDetails: {
             first: "",
+            last: "",
             preferred: null, 
+            mail: "", 
+            pass: "", 
+            bio: null, 
+            tags: [], 
             pk: 0
         }
     }, 
     reducers: {
-        login(state, action){
-            const {pk, first, preferred} = action.payload;
-            console.log("--------", pk, first, preferred)
-            state.auth=true;
-            state.userDetails.pk = pk;
-            state.userDetails.first = first;
-            state.userDetails.preferred = preferred;
+        login(state, action) {
+            state.auth = true;
+            state.userDetails = { ...action.payload };
         }, 
         logout(state){
             state.auth=false;
+        }, 
+        include(state, action){
+            state.auth = true;
+            const {key, value} = action.payload;
+            state.userDetails={...state.userDetails, [key]: value }
         }
     }
 });

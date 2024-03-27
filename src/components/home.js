@@ -19,7 +19,7 @@ export default function Home() {
   const navigate = useNavigate();
 
 
-
+  // creates an array to handle pagination
   const paginationArray = (data)=>{
     let arr=[];
     for (let i=0; i<Math.ceil(data.length/9); i++){
@@ -29,9 +29,11 @@ export default function Home() {
     return arr;
   };
 
+
   const handleToggle = ()=>{
     setSearchBy((current)=>(current ==="name" ? "price" : "name"))
   }
+
 
   const handleSearch = (event) =>{
     event.preventDefault();
@@ -40,7 +42,8 @@ export default function Home() {
     getItems(search, searchBy);
   }
 
-  const getItems =(search, searchby)=>{
+  // sets the data state variable to the items in the db that match the provided search
+   const getItems =(search, searchby)=>{
     if (!search){
       const randomData =[ ...mockData];
       randomData.sort(()=>Math.random()-.5);
@@ -73,13 +76,10 @@ export default function Home() {
     <div className='home'>
       {showModal[0] ? <Modal modalinfo={showModal[1]} clickBackdrop={()=>{setShowModal([false, ""])}} ></Modal>: ""}
       
-      <button onClick={()=>{navigate('/cart');}} 
-      >CART</button>
-
       <div className="flex browse">
 
-        <div className="flex">
-          <h3>Search by:</h3>
+        <div className="flex ">
+          <h3>Search by: </h3>
           <Switch title={searchBy} onChange={handleToggle} ></Switch>
         </div>
 
@@ -110,7 +110,7 @@ export default function Home() {
         <div>
           {/* <h4>Search:</h4>
           <h4>Options</h4> */}
-          <h4>Found:{found[1]} </h4>
+          <h4>Found: {found[1]} </h4>
           <div>
             <button className="circular">P</button>
             { 

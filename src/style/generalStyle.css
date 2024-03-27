@@ -17,6 +17,7 @@
 /* ---------------classes */
 .P3{
     padding: 3%;
+    
 }
 
 .title{
@@ -74,6 +75,8 @@ form small{
 
 .footer{
     background-color: var(--headerGrey);
+    margin-top: 5vh;
+    padding: 3%;
 }
 
 img{
@@ -112,6 +115,7 @@ img{
 
 .circular{
     border-radius: 50%;
+    background-color: var(--orange);
 }
 
 button{
@@ -132,9 +136,10 @@ button{
     font-weight: bold;
 }
 
+
 button:hover{
-    /* box-shadow: none; */
-    color: var(--orange);
+    box-shadow: none;
+    /* color: var(--green); */
 }
 
 .hidSec{
@@ -146,11 +151,32 @@ button:hover{
 
 }
 
+.profile{
+    flex-direction: column;
+}
+.profileHeader{
+    justify-content: space-evenly;
+    background-color: var(--headerGrey);
+    padding: 1.5%;
+    /* display: grid;
+    grid-template-columns:30% 60%; */
+    /* grid-template-rows: 45% 45%; */
+    /* gap:10%; */
+    /* align-items:end; */
+    /* justify-content:space-around; */
+}
+.profileBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .profileInfo{
     background: #F2EEE7;
-    margin: 2%;
+    margin:0% 2%;
     padding: 2%;
     border-radius: 25px;
+    min-width: 50%;
 }
 
 .profileInfoItem{
@@ -159,14 +185,7 @@ button:hover{
     padding: 0 5%;
 }
 
-.profileHeader{
-    display: grid;
-    grid-template-columns:30% 60%;
-    grid-template-rows: 45% 45%;
-    gap:10%;
-    align-items:end;
-    justify-content:space-around;
-}
+
 
 .profileImg{
     grid-row-start:1 ;
@@ -175,4 +194,9 @@ button:hover{
 
 #loginForm{
     padding: 10%;
+}
+
+#editPersonalInfo{
+    display: flex;
+    flex-direction:column ;
 }

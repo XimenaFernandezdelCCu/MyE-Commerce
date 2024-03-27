@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import NameEmailInput from "./nameEmailInput";
+import ExtraDets from "./extraDets";
 
 export default function SignupForm({login, setLogin}) {
 
@@ -40,12 +42,8 @@ export default function SignupForm({login, setLogin}) {
                         <strong>We're so excited to meet you!</strong><br/>
                         Please provide the details below so we can create an account for you. 
                     </p>
-                    <label >Name</label> <br/>
-                    <input placeholder="First"  type="text" ></input><br/>
-                    <input placeholder="Last" type="text" ></input><br/>
 
-                    <label htmlFor="emailInput">Email</label> <br/>
-                    <input id="emailInput" placeholder="Email" type="email" ></input><br/>
+                    <NameEmailInput></NameEmailInput>
 
                     <label>Password</label><br/>
                     <input placeholder="Password" ref={pass1} type="password"
@@ -67,19 +65,9 @@ export default function SignupForm({login, setLogin}) {
                         <strong>Complete your profile</strong><br/>
                         We want to know more about you!<br/> But if you want, you can finish setting up your profile later in the "Profile" section. 
                     </p>
-                    <label>Bio</label>
-                    <p>You can tell us a little about yourself here</p>
-                    <textarea placeholder="I love books that take me..." ></textarea><br/>
+                    
+                    <ExtraDets></ExtraDets><hr/>
 
-                    <label>Pick your interests:</label>
-                    <fieldset className="flex">
-                        {interests.map((interest, index) =>
-                            <div key={index}>
-                                <label>{interest}</label>
-                                <input type="checkbox" value={interest} ></input>
-                            </div>
-                        )}
-                    </fieldset>
                     <div>
                         <button>Skip</button>
                         <button>Save</button>

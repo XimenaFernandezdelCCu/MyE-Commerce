@@ -1,5 +1,5 @@
 import '../style/modal.css'
-import { addItem2Cart, removeItemFromCart } from "../utils";
+import { addItem2Cart } from "../../utils";
 import { useDispatch } from "react-redux";
 
 

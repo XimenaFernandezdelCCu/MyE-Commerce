@@ -1,11 +1,11 @@
 
 import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../store";
+import { authActions } from "../../store";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import SignupForm from "./small/signupForm";
-import usersData from "../mockData/users.json"
-import { handleValidInputs } from "../utils";
+import SignupForm from "./signupForm";
+import usersData from "../../mockData/users.json"
+import { handleValidInputs } from "../../utils";
 
 
 export default function Auth( ) {
@@ -27,7 +27,7 @@ export default function Auth( ) {
     const userMail = event.target.children[2].value;
     const userCont = event.target.children[8].value;
     console.log("ented: ", userMail, userCont);
-    const userDetails = usersData.find((user)=>user.email === userMail && user.pass === userCont);
+    const userDetails = usersData.find((user)=>user.mail === userMail && user.pass === userCont);
     console.log("found user: ", userDetails);
 
     if(!userMail || !userCont || !userDetails){
@@ -35,9 +35,14 @@ export default function Auth( ) {
     } else{
       console.log("***",userDetails.pk, userDetails.first, userDetails.preferred )
       const payload = {
-      pk: userDetails.pk, 
-      first: userDetails.first, 
-      preferred: userDetails.preferred
+        first: userDetails.first,
+        last: userDetails.last,
+        preferred: userDetails.preferred, 
+        mail: userDetails.mail, 
+        pass: userDetails.pass, 
+        bio: userDetails.bio, 
+        tags: userDetails.tags, 
+        pk: userDetails.pk
       }
       dispatch(authActions.login(payload));
       navigate('/home');
