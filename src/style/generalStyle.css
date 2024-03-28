@@ -32,7 +32,7 @@
 .flexcol{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
 }
 /* --------------------------------- */
 * {
@@ -91,9 +91,17 @@ input{
     border-radius: 10px;
     padding: 10px;
     margin: 1% 2%;
-    max-width: 20%;
-    max-height: 50vh;
+    /* max-width: 20%;
+    max-height: 50vh; */
 }
+.orangeBorder{
+    border-color: #cc8245;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 1% 2%;
+}
+
 .card img{
     height: 50%;
 }
@@ -141,20 +149,27 @@ img{
     opacity: 0.55;
 }
 
-.circular{
+#circular{
+    border: solid;
     border-radius: 50%;
-    background-color: var(--orange);
+    background-color: white;
+    border-color: #cc8245;
+    border-width: 3px;
+    align-self:flex-end;
 }
-
+#circular:hover{
+    box-shadow: 0 4px 8px 0 rgba(249, 249, 249, 0.2), 0 6px 20px 0 rgba(23, 1, 1, 0.19);
+}
 button{
     background-color: transparent;
     border: none;
     font-weight: bold;
+    display: flex;
+    align-items: center;
 }
 
 .pill{
    background-color: #cc8245;
-    border-radius: 60px ;
     border: none;
     border-radius: 60px;
     padding: .5rem 1rem;
@@ -163,7 +178,10 @@ button{
     box-shadow: 0 4px 8px 0 rgba(230, 229, 229, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     font-weight: bold;
 }
+.children{
+    margin: 5%;
 
+}
 
 button:hover{
     box-shadow: none;
@@ -197,6 +215,7 @@ button:hover{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 3% 0;
 }
 
 .profileInfo{
@@ -234,4 +253,22 @@ button:hover{
 }
 .green{
     background-color: #8eaf67;
+}
+
+.cartDets{
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.spacebetween{
+    justify-content: space-between;
+}
+
+.cardthinggy{
+    background-color: #8eaf67;
+    border-radius: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
 }

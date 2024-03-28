@@ -66,17 +66,24 @@ const cartSlice = createSlice({
 
 const wishSlice = createSlice({
     name: 'wish', 
-    initialState: [1,2,3], 
+    initialState: [], 
     reducers: {
         // Meant to receive only the key for the item. 
         add2Wishlist(state, action){
             state.push(action.payload)
         }, 
         removeFromWishlist(state, action){
-            const existingItem = state.find((item)=>item == action.payload);
-            if(existingItem){
-                state = state.filter((item)=>item!=action.payload)
-            }
+            // console.log("in-", action.payload)
+            // const existingItem = state.find((item)=>item == action.payload);
+            // if(existingItem){
+            //     (console.log("item: ", existingItem));
+            //     state = state.filter((item)=>item!=action.payload);
+            //     console.log(state);
+            // }
+                const indexToRemove = state.indexOf(action.payload);
+                if (indexToRemove !== -1) {
+                    state.splice(indexToRemove, 1);
+                }
         }
     }
 })

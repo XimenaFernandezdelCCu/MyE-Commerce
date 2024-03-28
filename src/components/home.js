@@ -5,12 +5,23 @@ import Browse from "./small/browse";
 import { paginationArray, addItem2Cart } from "../utils";
 import { useDispatch } from "react-redux";
 import { cartActions, wishActions } from "../store";
+import { BrowseContext } from "../context/browseContent";
+import { useContext } from "react";
+import Card from "./small/card";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart, faCartPlus} from '@fortawesome/free-solid-svg-icons';
+import Add2CartBtn from "./small/add2CartBtn";
+
 
 export default function Home() {
 
   let [data, setData] = useState(mockData);
   let [found, setFound] = useState(["true",data.length]);
   let [showModal, setShowModal] = useState([false, ""]);
+  // let [page, setPage] = useState(0);
+
+  // const {found} = useContext(BrowseContext)
+
   const dispatch = useDispatch();
 
   // sets the data state variable to the items in the db that match the provided search
@@ -44,7 +55,14 @@ export default function Home() {
   }
 
   return (
+    // <BrowseContext.Provider 
+    //   value={{
+    //     found, 
+        
+
+    //   }}>
     <div className='home'>
+
       {showModal[0] ? 
         <Modal clickBackdrop={()=>{setShowModal([false, ""])}} >
 
@@ -56,7 +74,8 @@ export default function Home() {
                     <button 
                     className="green pill" 
                     onClick={()=>{dispatch(wishActions.add2Wishlist(showModal[1].pk))}}
-                    >wish</button>
+                    > <FontAwesomeIcon icon={faHeart} className="children" />
+                      Wish</button>
                 </div>
                 <div className='modalb'>
                     <h1>{showModal[1].title}</h1>
@@ -69,9 +88,13 @@ export default function Home() {
             </div>
 
             <div className='modalbtns' >
-                <button onClick={()=>{dispatch(cartActions.add2Cart(showModal[1].pk))}}
+                <button 
+                type="submit" 
                 className="pill"
-                >Add to Cart</button>
+                onClick={()=>{dispatch(cartActions.add2Cart(showModal[1].pk))}}
+                    // style={{zIndex: "100"}}
+                ><FontAwesomeIcon icon={faCartPlus} /></button>
+
                 <button className="pill"
                 style={{backgroundColor: "white" }}
                 >See All Details</button>
@@ -80,8 +103,17 @@ export default function Home() {
 
         </Modal> : ""}
       
-      <Browse getItems={getItems} data={data} found={found} setShowModal={setShowModal} ></Browse>
+      <Browse getItems={getItems} data={data} found={found} Card={Card} setShowModal={setShowModal} >
+        {/* {paginationArray(data)[1].map((book, index)=>
+          <Card onClick={(event)=>{setShowModal([true, paginationArray(data)[page][index]])}}
+              Pk={book.pk}
+              title={book.title}
+              author={book.author} key={index} >
+          </Card>
+        )} */}
+      </Browse>
   
     </div>
+    // </BrowseContext.Provider>
   )
 };

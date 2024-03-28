@@ -1,26 +1,28 @@
 import { useState } from "react";
 import Searchbar from "./searchbar";
-import Card from "./card";
-import CardWish from "./cardWish";
+
 import { paginationArray } from "../../utils";
+import Pagination from "./pagination";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faArrowLeft, faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 
-export default function Browse ({getItems, data, found, setShowModal, type}) {
+
+export default function Browse (props) {
     // let [openSearchDets, setOpenSearchDets] = useState(false);
     let [searchBy, setSearchBy] = useState("name");
     let [page, setPage] = useState(0);
 
 
-    const pages = Array.from({ length: Math.ceil(data.length/9) }, (_, index) => index + 1);
+    const pages = Array.from({ length: Math.ceil(props.data.length/9) }, (_, index) => index + 1);
 
     // get entered search, and fetch data:
     const handleSearch = (event) =>{
         event.preventDefault();
         let search =event.target[0].value;
         setPage(0);
-        getItems(search, searchBy);
+        props.getItems(search, searchBy);
     }
 
     
@@ -47,7 +49,7 @@ export default function Browse ({getItems, data, found, setShowModal, type}) {
                 <h4>Options</h4> */}
                     
                 <div className="flex" >
-                    <h4>Found: {found[1]} </h4>
+                    <h4>Found: {props.found[1]} </h4>
                     <h4> Page: {page+1} </h4>
                     {page > 1 ? 
                         <button className="circular"
@@ -80,29 +82,27 @@ export default function Browse ({getItems, data, found, setShowModal, type}) {
                     }
 
                 </div>
+                {/* <Pagination></Pagination> */}
         
 
                 <div className="found flex P3 rsquare">
-                    {!found[0] ? <div>
+                    {!props.found[0] ? <div>
                         <h2>Uh oh!</h2>
                         <h4>Your search didn't match any items.<br/> Please try again. </h4>
                     </div>
                     : 
-                    paginationArray(data)[page].map((book, index)=>
-                        // { type === "wish" ?
-                        //     <CardWish onClick={(event)=>{setShowModal([true, paginationArray(data)[page][index]])}}
-                        //     Pk={book.pk}
-                        //     title={book.title}
-                        //     author={book.author} key={index} ></CardWish>
-                        // :
-                            <Card onClick={(event)=>{setShowModal([true, paginationArray(data)[page][index]])}}
-                            Pk={book.pk}
-                            title={book.title}
-                            author={book.author} key={index} ></Card>
-                        // }
-                        
-                    )}
-                
+                    paginationArray(props.data)[page].map((book, index)=>
+                            <props.Card onClick={(event)=>{props.setShowModal([true, paginationArray(props.data)[page][index]])}}
+                                Pk={book.pk}
+                                title={book.title}
+                                author={book.author} key={index}
+                                setData={props.setData} >
+                            </props.Card>
+                            )
+                    
+                    // <>{props.children}</>
+                    }
+                    
                 
 
                 </div>
