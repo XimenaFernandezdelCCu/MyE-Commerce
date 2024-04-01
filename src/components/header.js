@@ -1,7 +1,8 @@
 import {Link} from "react-router-dom"
 import '../style/headerStyle.css'
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from "react-redux";
+import { authActions } from "../store";
 
 export default function Header({links, section}) {
   const linkStyle ={
@@ -11,6 +12,10 @@ export default function Header({links, section}) {
     // "&:hover": {
     //   color: "#cc8245"
     // }
+  }
+  const dispatch = useDispatch();
+  const handleLogout = ()=>{
+    dispatch(authActions.logout())
   }
   // const navigate = useNavigate();
     return (
@@ -28,7 +33,9 @@ export default function Header({links, section}) {
                 <Link to='/home' style={linkStyle}>Shop</Link>
                 <Link to='/cart' style={linkStyle}>Cart</Link>
                 <Link to='/profile' style={linkStyle}>Profile</Link>
-                <Link style={linkStyle}>Logout</Link>
+                <Link  to='/profile'
+                onClick={handleLogout}
+                style={linkStyle}>Logout</Link>
             </ul>
         </div>
         <div className="headerRectangle" >

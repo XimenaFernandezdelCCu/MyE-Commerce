@@ -5,8 +5,6 @@ import Browse from "./small/browse";
 import { paginationArray, addItem2Cart } from "../utils";
 import { useDispatch } from "react-redux";
 import { cartActions, wishActions } from "../store";
-import { BrowseContext } from "../context/browseContent";
-import { useContext } from "react";
 import Card from "./small/card";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faCartPlus} from '@fortawesome/free-solid-svg-icons';
@@ -18,9 +16,6 @@ export default function Home() {
   let [data, setData] = useState(mockData);
   let [found, setFound] = useState(["true",data.length]);
   let [showModal, setShowModal] = useState([false, ""]);
-  // let [page, setPage] = useState(0);
-
-  // const {found} = useContext(BrowseContext)
 
   const dispatch = useDispatch();
 
@@ -55,12 +50,6 @@ export default function Home() {
   }
 
   return (
-    // <BrowseContext.Provider 
-    //   value={{
-    //     found, 
-        
-
-    //   }}>
     <div className='home'>
 
       {showModal[0] ? 

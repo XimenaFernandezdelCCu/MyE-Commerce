@@ -62,6 +62,9 @@ const cartSlice = createSlice({
         },
         removeAllFromCart(state){
             state.cartItems=[];
+        }, 
+        setCart(state, action){
+            state.cartItems=action.payload;
         }
         
     }
@@ -80,6 +83,9 @@ const wishSlice = createSlice({
                 if (indexToRemove !== -1) {
                     state.splice(indexToRemove, 1);
                 }
+        }, 
+        setWishlist(state, action){
+            state=action.payload;
         }
     }
 })
@@ -90,6 +96,9 @@ const ordersSlice = createSlice({
     reducers: {
         createOrder(state, action){
             state.push(action.payload)
+        }, 
+        setOrders(state, action){
+            state=action.payload;
         }
 
     }

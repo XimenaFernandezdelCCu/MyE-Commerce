@@ -1,9 +1,12 @@
-
+// redux
 import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../../store";
-import { useState } from "react";
+import { authActions, cartActions, wishActions, ordersActions } from "../../store";
+// Router 
 import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+// components 
 import SignupForm from "./signupForm";
+//
 import usersData from "../../mockData/users.json"
 import { handleValidInputs } from "../../utils";
 
@@ -15,25 +18,24 @@ export default function Auth( ) {
   const [userFound, setUserFound]=useState(null);
   // ------------redux
   const dispatch = useDispatch();
-  const authState = useSelector((state) => state.auth);
   // ------router
   const navigate = useNavigate();
+
   var type = login ? "Login": "Signup";
   const allow = Object.values(valid).every((value) => value === true);
 
   const handleLogin = (event)=>{
     event.preventDefault();
-    console.log("------------", authState);
+    // REF? Retrieve inputs 
     const userMail = event.target.children[2].value;
     const userCont = event.target.children[8].value;
-    console.log("ented: ", userMail, userCont);
+    // simulate DB Fetch:
     const userDetails = usersData.find((user)=>user.mail === userMail && user.pass === userCont);
     console.log("found user: ", userDetails);
 
     if(!userMail || !userCont || !userDetails){
       setUserFound(false);
     } else{
-      console.log("***",userDetails.pk, userDetails.first, userDetails.preferred )
       const payload = {
         first: userDetails.first,
         last: userDetails.last,
@@ -45,6 +47,31 @@ export default function Auth( ) {
         pk: userDetails.pk
       }
       dispatch(authActions.login(payload));
+
+      //local Store:
+      const key = "Marketfy_"+userDetails.mail
+      const localStore = JSON.parse(localStorage.getItem(key));
+      console.log("LOCAL: ",localStore);
+
+      if(localStore === null){
+        localStorage.setItem(key, JSON.stringify({
+          auth: true, 
+          userDetails: payload
+        }))
+      } else {
+        if(localStore.cart){
+          console.log("loading Cart from local storage")
+          dispatch(cartActions.setCart(localStore.cart));
+        }
+        if (localStore.wish){
+          console.log("loading Wishlist from local storage")
+          dispatch(wishActions.setWishlist(localStore.wish));
+        }
+        if(localStore.orders){
+          console.log("loading orders from local storage")
+          dispatch(ordersActions.setOrders(localStore.orders))
+        }
+      }
       navigate('/home');
     }
   }
