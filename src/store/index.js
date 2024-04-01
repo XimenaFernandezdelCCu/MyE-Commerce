@@ -59,6 +59,9 @@ const cartSlice = createSlice({
                 }
                 
             } 
+        },
+        removeAllFromCart(state){
+            state.cartItems=[];
         }
         
     }
@@ -73,13 +76,6 @@ const wishSlice = createSlice({
             state.push(action.payload)
         }, 
         removeFromWishlist(state, action){
-            // console.log("in-", action.payload)
-            // const existingItem = state.find((item)=>item == action.payload);
-            // if(existingItem){
-            //     (console.log("item: ", existingItem));
-            //     state = state.filter((item)=>item!=action.payload);
-            //     console.log(state);
-            // }
                 const indexToRemove = state.indexOf(action.payload);
                 if (indexToRemove !== -1) {
                     state.splice(indexToRemove, 1);
@@ -88,15 +84,28 @@ const wishSlice = createSlice({
     }
 })
 
+const ordersSlice = createSlice({
+    name: "orders", 
+    initialState: [], 
+    reducers: {
+        createOrder(state, action){
+            state.push(action.payload)
+        }
+
+    }
+})
+
 const store = configureStore({
     reducer: {
         auth: authSlice.reducer, 
         cart: cartSlice.reducer, 
-        wish: wishSlice.reducer
+        wish: wishSlice.reducer, 
+        orders: ordersSlice.reducer
     }
 })
 
 export const authActions = authSlice.actions;
 export const cartActions = cartSlice.actions;
 export const wishActions = wishSlice.actions;
+export const ordersActions = ordersSlice.actions;
 export default store;

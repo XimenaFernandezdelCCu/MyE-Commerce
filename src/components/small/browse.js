@@ -92,7 +92,8 @@ export default function Browse (props) {
                     </div>
                     : 
                     paginationArray(props.data)[page].map((book, index)=>
-                            <props.Card onClick={(event)=>{props.setShowModal([true, paginationArray(props.data)[page][index]])}}
+                            <props.Card 
+                                onClick={(event)=>{props.setShowModal([true, paginationArray(props.data)[page][index]])}}
                                 Pk={book.pk}
                                 title={book.title}
                                 author={book.author} key={index}

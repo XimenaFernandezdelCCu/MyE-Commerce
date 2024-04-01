@@ -9,27 +9,10 @@ import mockData from '../../mockData/items.json'
 export default function CartDetails({authState, cart, filtered}) {
 
     // ------------redux
-    const dispatch = useDispatch();
-    // const cart = useSelector((state) => state.cart);
-    // const authState = useSelector((state) => state.auth);
-  
+    const dispatch = useDispatch();  
     console.log("user: ", authState.userDetails.first);
-    // const user = authState.userDetails.pk == 0 ? users[1] : authState.userDetails;
-    
-    // const pref = user.preferred ? user.preferred : user.first; 
-  
-    
-    // const filtered = mockData.filter(book => 
-    //   cart.cartItems.some(item => item.id === book.pk)
-    // );
-  
-    // const total = filtered.reduce((acc, book, index) => {
-    //   const itemTotal = book.price * cart.cartItems[index].qty;
-    //   return acc + itemTotal;
-    // }, 0);
-    //   console.log(filtered[0].price+1);
-    // console.log("qty: ",cart.cartItems[0].qty);
-   
+    console.log("filtered: ", filtered);
+
     return(
 
           <div className='cartItems' >

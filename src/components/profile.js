@@ -5,6 +5,7 @@ import ProfileInfoCopy from "./small/profileInfoCopy";
 import { useSelector } from "react-redux";
 import users from '../mockData/users.json'
 import Wishlist from "./small/wishlist";
+import OrderHistory from "./orderHistory";
 
 
 
@@ -49,7 +50,8 @@ export default function Profile() {
 
           <HiddenSec state={option}>
             {option == "info" ? <ProfileInfo user={user} ></ProfileInfo> : 
-              option == "edit" ? <ProfileInfoCopy setOption={setOption} ></ProfileInfoCopy> : <h1>Orders</h1> 
+              option == "edit" ? <ProfileInfoCopy setOption={setOption} ></ProfileInfoCopy> : 
+              <OrderHistory></OrderHistory> 
             }
           </HiddenSec>
         </div>

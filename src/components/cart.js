@@ -1,10 +1,13 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { ordersActions, cartActions } from "../store";
 import { addItem2Cart, removeItemFromCart } from "../utils";
 import users from '../mockData/users.json'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck}  from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck, faCreditCard }  from '@fortawesome/free-solid-svg-icons'
 import mockData from '../mockData/items.json';
 import { useState } from "react";
+import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 import CartDetails from "./small/cartDetails";
 import Loader from "./small/loader";
@@ -12,12 +15,15 @@ import Loader from "./small/loader";
 
 export default function Cart() {
 
-  const [checkout, setCheckout] = useState(true);
+  const [checkout, setCheckout] = useState(false);
   const [loader, setLoader] = useState(false);
 
   // // ------------redux
   const cart = useSelector((state) => state.cart);
+  const order = useSelector((state) => state.orders);
   const authState = useSelector((state) => state.auth);
+  const dispatch = useDispatch();  
+  const navigate = useNavigate();
 
   const user = authState.userDetails.pk == 0 ? users[1] : authState.userDetails;
   
@@ -31,46 +37,81 @@ export default function Cart() {
     return acc + itemTotal;
   }, 0);
 
-  const loaderDisp =(loader == true  ? <Loader></Loader> :  <FontAwesomeIcon
-  icon={faCircleCheck}
-  style={{
-    color: '#8eaf67',
-    // opacity: showCheck ? 1 : 0,
-    transition: 'opacity 1s ease-in-out',
-  }}
-  />);
-  console.log(loaderDisp);
-
-  const handlePay =()=>{
-    setTimeout(() => {
-      setShowLoader(false); // Hide loader after 3 seconds
-    }, 3000);
-
+  const linkStyle ={
+    color: "#cc8245", 
+    textDecoration: "none", 
+    fontWeight: "bolder",
+    marginLeft: "3%" 
+    // "&:hover": {
+    //   color: "#cc8245"
+    // }
   }
+
+  const generateCombinedArray = (filtered, cartItems) => {
+    console.log("inside filtered: ", filtered);
+    console.log("inside cart: ",  cartItems );
+
+      const combinedArray = filtered.map((item) => {
+        const cartItem = cartItems.find((cartItem) => cartItem.id === item.pk);
+        const quantity = cartItem ? cartItem.qty : 0;
+        return { ...item, qty: quantity };
+      });
+      return combinedArray;
+    };
+  
+  const handlePay = ()=>{
+    setCheckout(false)
+    const orderNum = order.length > 0 ? order.length+1 : 1;
+    const statusOptions = ['received', 'shipped', 'delivered'];
+    const newOrder = {
+      number: orderNum, 
+      items: generateCombinedArray(filtered, cart.cartItems),
+      total: total, 
+      status: statusOptions[Math.floor(Math.random() * statusOptions.length)], 
+      generated: new Date().toLocaleString()
+    }
+    
+    console.log("new order: ", newOrder)
+    dispatch(ordersActions.createOrder(newOrder))
+    dispatch(cartActions.removeAllFromCart());
+    navigate('/profile')
+  }
+
+
   
 
   return (
     <div>
-      <div className="cart rsquare P3">
-      <h1>{pref}'s Cart</h1>
-      <h4>{cart.cartItems.length } items</h4>
-      {cart.cartItems.length >0 ? 
-        <div>
-        <CartDetails authState={authState} cart={cart} filtered={filtered}></CartDetails>
-          <hr></hr>
-          <h3>Total: {total} </h3>
-          <button className="pill" >Checkout</button>
-        </div>
-        :
-        <h1>Your cart is empty!</h1>
-      }
-      </div>
+      
 
-      {checkout ? 
+      {!checkout ? 
+        <div className="cart rsquare P3">
+          <h1>{pref}'s Cart</h1>
+          <h4>{cart.cartItems.length } items</h4>
+          {cart.cartItems.length >0 ? 
+            <div>
+            <CartDetails authState={authState} cart={cart} filtered={filtered}></CartDetails>
+              <hr></hr>
+              <h3>Total: {total} </h3>
+              <button className="pill" 
+              onClick={()=>{setCheckout(true)}}
+              >Checkout</button>
+            </div>
+            :
+            <>
+            <h1>Your cart is empty!</h1>
+            <h4><br/> You can add items to your cart in the 
+            <Link to='/home' style={linkStyle}>Shop</Link>. </h4></>
+          }
+        </div>
+        : 
         <div className="checkout">
           <h1>Checkout</h1>
+          <button className="pill"
+          onClick={()=>setCheckout(false)}
+          >Back to Cart</button>
           <div style={{backgroundColor: "white"}} > 
-          <h4>Steps</h4>
+          {/* <h4>Steps</h4> */}
 
           <div className="orangeBorder flex spacebetween">
 
@@ -135,7 +176,7 @@ export default function Cart() {
                       <input placeholder="10 524"  type="text" ></input>
                     </div><hr/>
                     <div className="flex profileInfoItem" >
-                      <input checked={true} type="checkbox" ></input>
+                      <input  type="checkbox" ></input>
                       <label><p>Shipping Adress same as Billing</p></label>    
                       
                     </div><hr/>
@@ -147,7 +188,9 @@ export default function Cart() {
               </div>
             </div>
 
+            {cart.cartItems.length >0 ? 
             <div style={{width:"50%"}} >
+            
               <div>
                 
                 <h4>Order Details</h4>
@@ -157,18 +200,24 @@ export default function Cart() {
               </div>
 
               <div>
-                <button
-                onClick={()=>{handlePay}}
+                <button className="pill"
+                onClick={handlePay}
                 > PAY  {total} $ </button>
               </div>
-              <Loader></Loader>
+              {/* <Loader></Loader> */}
             </div>
+            :
+              <>
+               <h1>Your cart is empty!</h1>
+               <h4><br/> You can add items to your cart in the 
+            <Link to='/home' style={linkStyle}>Shop</Link>. </h4></>
+            }
+
 
 
           </div>
           </div>
-        </div>
-      : <></>}
+        </div>}
       
       {/* <div className="cardthinggy">
                 <h4 className="title alignEnd"  >BANK</h4>

@@ -15,3 +15,22 @@ export default function Modal (props) {
     )
 
 }
+
+/*To use:
+Import component, 
+add a show modal state to the component: let [showModal, setShowModal] = useState([false, ""]);
+create a function that will set showmodal to true when an event happens. 
+add the content of the modal as a child of this component. 
+add this prop to the modal component to close: 
+clickBackdrop={()=>{setShowModal([false, ""])}}
+
+example: 
+{showModal[0] ? 
+        <Modal clickBackdrop={()=>{setShowModal([false, ""])}} >
+
+          <div className='modalcontent' >
+            
+          </div>
+
+        </Modal> : ""}
+*/
