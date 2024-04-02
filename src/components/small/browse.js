@@ -5,7 +5,7 @@ import { paginationArray } from "../../utils";
 import Pagination from "./pagination";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faArrowLeft, faArrowRightArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 

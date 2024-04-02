@@ -1,7 +1,5 @@
 import {createSlice, configureStore} from '@reduxjs/toolkit'
 
-
-
 const authSlice = createSlice({
     name: 'auth', 
     initialState: {
@@ -76,7 +74,10 @@ const wishSlice = createSlice({
     reducers: {
         // Meant to receive only the key for the item. 
         add2Wishlist(state, action){
-            state.push(action.payload)
+            const existingItem = state.find(item => item === action.payload);
+            if (!existingItem) {
+                state.push(action.payload);
+            }
         }, 
         removeFromWishlist(state, action){
                 const indexToRemove = state.indexOf(action.payload);
@@ -85,7 +86,11 @@ const wishSlice = createSlice({
                 }
         }, 
         setWishlist(state, action){
-            state=action.payload;
+            console.log("innn")
+            return action.payload;
+        }, 
+        deleteWishlist(state){
+            return []
         }
     }
 })

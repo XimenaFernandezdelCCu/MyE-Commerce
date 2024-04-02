@@ -4,6 +4,7 @@ import { wishActions, cartActions } from "../../store";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen, faTrash, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom"
+import { handleDeleteFromWishlist } from "../../utils";
 
 
 import mockData from '../../mockData/items.json';
@@ -12,7 +13,7 @@ export default function Wishlist () {
     let [showModal, setShowModal] = useState([false, ""]);
     const wishState = useSelector((state)=>state.wish);
     let [data, setData] = useState([]);
-
+    const userMail = useSelector((state) => state.auth.userDetails.mail);    
     console.log("data: " , data)
 
     const dispatch = useDispatch();
@@ -31,10 +32,10 @@ export default function Wishlist () {
     
 
 
-    function handleDelWish (Pk){
-        dispatch(wishActions.removeFromWishlist(Pk));
-        console.log("removed", Pk);
-    }
+    // function handleDelWish (Pk){
+    //     dispatch(wishActions.removeFromWishlist(Pk));
+    //     console.log("removed", Pk);
+    // }
     const linkStyle ={
         color: "#cc8245", 
         textDecoration: "none", 
@@ -80,7 +81,7 @@ export default function Wishlist () {
                             }}>
                             <button 
                             id="circular"
-                            onClick={()=>{handleDelWish(book.pk)}}
+                            onClick={()=>{handleDeleteFromWishlist(dispatch, book.pk, userMail)}}
                             ><FontAwesomeIcon icon={faTrash} size={"xs"} /></button>
 
                             <div className="flex" style={{justifyContent:" space-evenly"}}>

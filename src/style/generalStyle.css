@@ -272,3 +272,16 @@ button:hover{
     justify-content: center;
     
 }
+
+.HeaderLink{
+    color: #cc8245;
+    text-decoration: none;
+    font-weight: bolder;
+
+}
+
+.HeaderLink:hover, 
+.HeaderLink:active{
+    color: red;
+
+}

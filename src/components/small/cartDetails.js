@@ -10,8 +10,9 @@ export default function CartDetails({authState, cart, filtered}) {
 
     // ------------redux
     const dispatch = useDispatch();  
-    console.log("user: ", authState.userDetails.first);
-    console.log("filtered: ", filtered);
+    const userMail = useSelector((state) => state.auth.userDetails.mail);  
+    console.log("usermail: ", userMail);
+   
 
     return(
 
@@ -26,11 +27,11 @@ export default function CartDetails({authState, cart, filtered}) {
 
               <div className="flex cartDets">
                 <button 
-                onClick={()=>{removeItemFromCart(dispatch, item.pk)}}
+                onClick={()=>{removeItemFromCart(dispatch, item.pk, userMail)}}
                 id="circular"
                 >-</button>
                 <p>{cart.cartItems[index].qty}</p>
-                <button onClick={()=>{addItem2Cart(dispatch, item.pk)}}
+                <button onClick={()=>{addItem2Cart(dispatch, item.pk, userMail)}}
                 id="circular"
                 >+</button>
               </div>

@@ -7,6 +7,7 @@ import { faBookOpen, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 export default function Card({title,author, onClick, Pk}) {
   // ------------redux
   const dispatch = useDispatch();
+  const userMail = useSelector((state) => state.auth.userDetails.mail);  
   // const cart = useSelector((state) => state.cart);
   
     return (
@@ -22,7 +23,7 @@ export default function Card({title,author, onClick, Pk}) {
         <button 
                 type="submit" 
                 className="pill"
-                onClick={()=>{addItem2Cart(dispatch, Pk)}}
+                onClick={()=>{addItem2Cart(dispatch, Pk, userMail)}}
                     // style={{zIndex: "100"}}
                 ><FontAwesomeIcon icon={faCartPlus} /></button>
         {/* <button 

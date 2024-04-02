@@ -22,6 +22,7 @@ export default function Cart() {
   const cart = useSelector((state) => state.cart);
   const order = useSelector((state) => state.orders);
   const authState = useSelector((state) => state.auth);
+  const userMail = useSelector((state) => state.auth.userDetails.mail);    
   const dispatch = useDispatch();  
   const navigate = useNavigate();
 
@@ -71,11 +72,18 @@ export default function Cart() {
       generated: new Date().toLocaleString()
     }
     
+    const localStore = JSON.parse(localStorage.getItem("Marketfy_"+userMail));
+    let updated ={...localStore};
+    updated.cart=[]
+    localStorage.setItem("Marketfy_"+userMail, JSON.stringify(updated));
+
     console.log("new order: ", newOrder)
     dispatch(ordersActions.createOrder(newOrder))
     dispatch(cartActions.removeAllFromCart());
     navigate('/profile')
+
   }
+
 
 
   

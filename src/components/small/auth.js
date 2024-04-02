@@ -1,5 +1,5 @@
 // redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { authActions, cartActions, wishActions, ordersActions } from "../../store";
 // Router 
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { useState } from "react";
 import SignupForm from "./signupForm";
 //
 import usersData from "../../mockData/users.json"
-import { handleValidInputs } from "../../utils";
+import { handleValidInputs, getLocalInfo } from "../../utils";
 
 
 export default function Auth( ) {
@@ -31,7 +31,6 @@ export default function Auth( ) {
     const userCont = event.target.children[8].value;
     // simulate DB Fetch:
     const userDetails = usersData.find((user)=>user.mail === userMail && user.pass === userCont);
-    console.log("found user: ", userDetails);
 
     if(!userMail || !userCont || !userDetails){
       setUserFound(false);
@@ -50,8 +49,10 @@ export default function Auth( ) {
 
       //local Store:
       const key = "Marketfy_"+userDetails.mail
-      const localStore = JSON.parse(localStorage.getItem(key));
-      console.log("LOCAL: ",localStore);
+      // const localStore = JSON.parse(localStorage.getItem(key));
+      // console.log("LOCAL: ",localStore);
+      const localStore = getLocalInfo(userDetails.mail);
+      //
 
       if(localStore === null){
         localStorage.setItem(key, JSON.stringify({
@@ -59,6 +60,9 @@ export default function Auth( ) {
           userDetails: payload
         }))
       } else {
+        const updated = {...localStore} 
+        updated.auth = true; 
+        localStorage.setItem(key, JSON.stringify(updated))
         if(localStore.cart){
           console.log("loading Cart from local storage")
           dispatch(cartActions.setCart(localStore.cart));
