@@ -1,13 +1,13 @@
-import { cartActions, wishActions, authActions } from "./store";
+import { cartActions, wishActions, authActions, ordersActions } from "./store";
 
 export function handleLogout (dispatch, keyMail) {
-    console.log("key passed: ", keyMail)
     const key = "Marketfy_"+keyMail;
     const prev = getLocalInfo(keyMail)
     let updated ={...prev};
     updated.auth=false;
     console.log("updated: ", updated);
     localStorage.setItem(key, JSON.stringify(updated));
+    // localStorage.removeItem("UserMail");
     dispatch(authActions.logout())
 }
 
@@ -17,7 +17,11 @@ export function addItem2Cart (dispatch, item, keyMail) {
     const key = "Marketfy_"+keyMail;
     const prev = getLocalInfo(keyMail)
     let updated;
-    if (prev.cart){
+
+    console.log("key: ", key);
+    console.log("prev, ", prev);
+
+    if (prev.cart && prev.cart.length>0){
         updated = {...prev }
         const existingItem = updated.cart.findIndex((it)=>it.id == item);
         if(existingItem===-1){
@@ -115,11 +119,13 @@ export function handleDeleteFromWishlist(dispatch, item, keyMail){
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function handleValidInputs (event, type, setValid) {
-    //empty
+    // if the input is empty set valid false:
     if (event.target.value.length<1){
         setValid((valid)=>({...valid, [type]: false}));
     } else {
+        // else set to true
         setValid((valid)=>({...valid, [type]: true}));
+        // only set email to true if it is an actual email
         if (type === "mail"){
             if (!emailRegex.test(event.target.value)){
                 setValid((valid)=>({...valid, [type]: false}));
@@ -145,6 +151,93 @@ export function paginationArray (data) {
 export function getLocalInfo(mail){
     // const key = "Marketfy_"+mail;
     const localStore = JSON.parse(localStorage.getItem("Marketfy_"+mail));
-    console.log("LOCAL: ","key: "+"Marketfy_"+mail,"data: ",localStore);
     return localStore
 }
+
+// -------------------------------------
+export function activeUserToRedux(activeUser, dispatch){
+    const payload = {
+        auth: true,
+        first: activeUser.first,
+        last: activeUser.last,
+        preferred: activeUser.preferred, 
+        mail: activeUser.mail, 
+        pass: activeUser.pass, 
+        bio: activeUser.bio, 
+        tags: activeUser.tags, 
+        pk: activeUser.pk
+    }
+    dispatch(authActions.login(payload));
+
+    if(activeUser.cart){
+        console.log("Loading Cart from local storage...")
+        dispatch(cartActions.setCart(activeUser.cart));
+    }
+    if(activeUser.wish){
+        console.log("Loading WishList from local storage...")
+        dispatch(wishActions.setWishlist(activeUser.wish));
+    }
+    if(activeUser.orders){
+        console.log("Loading Orders from local storage...")
+        dispatch(ordersActions.setOrders(activeUser.orders));
+    }
+}
+
+
+// -------------------------------------
+// export function handleLogin (event, dispatch, navigate){
+//     event.preventDefault();
+//     // REF? Retrieve inputs 
+//     const userMail = event.target.children[2].value;
+//     const userCont = event.target.children[8].value;
+//     // simulate DB Fetch:
+//     const userDetails = usersData.find((user)=>user.mail === userMail && user.pass === userCont);
+
+//     if(!userMail || !userCont || !userDetails){
+//       setUserFound(false);
+//     } else{
+//       const payload = {
+//         first: userDetails.first,
+//         last: userDetails.last,
+//         preferred: userDetails.preferred, 
+//         mail: userDetails.mail, 
+//         pass: userDetails.pass, 
+//         bio: userDetails.bio, 
+//         tags: userDetails.tags, 
+//         pk: userDetails.pk
+//       }
+//       dispatch(authActions.login(payload));
+//       localStorage.setItem("UserMail", userDetails.mail);
+
+//       //local Store:
+//       const key = "Marketfy_"+userDetails.mail
+//       // const localStore = JSON.parse(localStorage.getItem(key));
+//       // console.log("LOCAL: ",localStore);
+//       const localStore = getLocalInfo(userDetails.mail);
+//       //
+
+//       if(localStore === null){
+//         localStorage.setItem(key, JSON.stringify({
+//           auth: true, 
+//           userDetails: payload
+//         }))
+//       } else {
+//         const updated = {...localStore} 
+//         updated.auth = true; 
+//         localStorage.setItem(key, JSON.stringify(updated))
+//         if(localStore.cart){
+//           console.log("loading Cart from local storage")
+//           dispatch(cartActions.setCart(localStore.cart));
+//         }
+//         if (localStore.wish){
+//           console.log("loading Wishlist from local storage")
+//           dispatch(wishActions.setWishlist(localStore.wish));
+//         }
+//         if(localStore.orders){
+//           console.log("loading orders from local storage")
+//           dispatch(ordersActions.setOrders(localStore.orders))
+//         }
+//       }
+//       navigate('/home');
+//     }
+//   }

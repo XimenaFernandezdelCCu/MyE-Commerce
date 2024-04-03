@@ -1,13 +1,15 @@
 import {Link} from "react-router-dom"
+import {useState } from "react";
 import '../style/headerStyle.css'
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../utils";
 
 export default function Header({links, section}) {
   const dispatch = useDispatch();
-  const userMail = useSelector((state) => state.auth.userDetails.mail);  
-  console.log("userMail header: ", userMail);
+  const mail = localStorage.getItem("UserMail");
+  const cartLength = useSelector((state) => state.cart.cartItems.length);
+
+  
 
   return (
     <div className="header" > 
@@ -22,10 +24,13 @@ export default function Header({links, section}) {
               )
               } */}
               <Link to='/home' className="HeaderLink">Shop</Link>
-              <Link to='/cart' className="HeaderLink">Cart</Link>
+              <div style={{position:"relative"}} >
+                {cartLength>0 ? <div className="notification">{cartLength}</div>:""}
+                <Link to='/cart' className="HeaderLink" style={{marginRight:"2vw"}} >Cart</Link>
+              </div>
               <Link to='/profile' className="HeaderLink">Profile</Link>
               <Link  to='/profile'className="HeaderLink"
-              onClick={()=>handleLogout(dispatch, userMail)}
+              onClick={()=>handleLogout(dispatch, mail)}
               >Logout</Link>
           </ul>
       </div>

@@ -1,13 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// Components:
+import ContentWrap from "./components/contentWrap";
+import Error from "./components/small/error";
+import ProtectedRoute from "./components/small/protectedRoute";
 import Land from './components/land';
 import Home from './components/home';
 import Profile from './components/profile';
 import Cart from './components/cart';
-import ProtectedRoute from "./components/small/protectedRoute";
-import ContentWrap from "./components/contentWrap";
 import ProductDetails from "./components/productDetails";
-import Error from "./components/small/error";
-
+// Style
 import "./style/generalStyle.css"
 
 const router = createBrowserRouter(

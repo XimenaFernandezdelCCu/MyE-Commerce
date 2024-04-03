@@ -178,6 +178,7 @@ button{
     box-shadow: 0 4px 8px 0 rgba(230, 229, 229, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     font-weight: bold;
 }
+
 .children{
     margin: 5%;
 
@@ -282,6 +283,33 @@ button:hover{
 
 .HeaderLink:hover, 
 .HeaderLink:active{
-    color: red;
+    color: var(--green);
 
+}
+
+.notification{
+    border-radius: 50%;
+    background-color: var(--orange);
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    width: 2vw;
+    height: 2vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+}
+
+/* ---------------------------------------- */
+.formInput{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
+    margin-bottom: 2%;
+}
+.formInput input, h2{
+    margin: 3%;
 }

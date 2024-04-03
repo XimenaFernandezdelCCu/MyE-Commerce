@@ -35,6 +35,14 @@ export default function ProductDetails(){
                     <h3>{product.author}</h3>
                     <p>{product.synapsis}</p>
                     <h2>Current stock: {product.stock}</h2>
+                    <ul>
+                        <h3>Hardcover</h3>
+                        <h3>November 14, 1998</h3>
+                        <h3>756 Pages</h3>
+                        <h3>Enlgish</h3>
+                        <h3>Penguin Editorials</h3>
+                    </ul>
+
                     
 
                 </div>
@@ -56,6 +64,7 @@ export default function ProductDetails(){
 
 
             </div>
-          </div>
+
+        </div>
     )
 }

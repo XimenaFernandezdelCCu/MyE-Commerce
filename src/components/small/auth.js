@@ -1,81 +1,62 @@
+/* Contains Login */
+
 // redux
 import { useDispatch } from "react-redux";
 import { authActions, cartActions, wishActions, ordersActions } from "../../store";
 // Router 
 import { useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useState,  useContext } from "react";
 // components 
 import SignupForm from "./signupForm";
+import LoginForm from "./loginForm"
+import FormInput from "./formInput";
+//context 
+import {ValidationContext} from "../../context/ValidationProvider";
 //
 import usersData from "../../mockData/users.json"
-import { handleValidInputs, getLocalInfo } from "../../utils";
+import { handleValidInputs, getLocalInfo, activeUserToRedux, handleLogin } from "../../utils";
 
 
 export default function Auth( ) {
-
+  // State
   let [login, setLogin] = useState(true);
-  const [valid, setValid] = useState({mail:null});
-  const [userFound, setUserFound]=useState(null);
-  // ------------redux
-  const dispatch = useDispatch();
-  // ------router
-  const navigate = useNavigate();
+  // const [valid, setValid] = useState({mail:null});
+  const {valid, setValid} = useContext(ValidationContext);
 
+  const [userFound, setUserFound]=useState(null);
+  // Redux
+  const dispatch = useDispatch();
+  // Router
+  const navigate = useNavigate();
+  // Users DB
+  const localStoreUsers = JSON.parse(localStorage.getItem("users")); 
+  
   var type = login ? "Login": "Signup";
-  const allow = Object.values(valid).every((value) => value === true);
+  const {allow}= useContext(ValidationContext);
+  // const allow = Object.values(valid).every((value) => value === true);
 
   const handleLogin = (event)=>{
     event.preventDefault();
-    // REF? Retrieve inputs 
-    const userMail = event.target.children[2].value;
-    const userCont = event.target.children[8].value;
-    // simulate DB Fetch:
-    const userDetails = usersData.find((user)=>user.mail === userMail && user.pass === userCont);
+    //  Retrieve User Input: 
+    const formData = new FormData(event.target);
+    const userMail = formData.get('loginEmail');
+    const userPass = formData.get('loginPassword');
+    console.log("input: ", userMail, userPass);
 
-    if(!userMail || !userCont || !userDetails){
+    // simulate DB Fetch:
+    // find user in JSON 
+    // const userDetails = usersData.find((user)=>user.mail === userMail && user.pass === userPass);
+    // find user in Local Storage
+    const activeUser = localStoreUsers.find((user)=>user.mail === userMail && user.pass === userPass)
+
+    if(!activeUser || !userMail || !userPass ){
       setUserFound(false);
     } else{
-      const payload = {
-        first: userDetails.first,
-        last: userDetails.last,
-        preferred: userDetails.preferred, 
-        mail: userDetails.mail, 
-        pass: userDetails.pass, 
-        bio: userDetails.bio, 
-        tags: userDetails.tags, 
-        pk: userDetails.pk
-      }
-      dispatch(authActions.login(payload));
+      // Add User to Redux
+      activeUserToRedux(activeUser, dispatch);
 
-      //local Store:
-      const key = "Marketfy_"+userDetails.mail
-      // const localStore = JSON.parse(localStorage.getItem(key));
-      // console.log("LOCAL: ",localStore);
-      const localStore = getLocalInfo(userDetails.mail);
-      //
+      localStorage.setItem("UserMail", activeUser.mail);
 
-      if(localStore === null){
-        localStorage.setItem(key, JSON.stringify({
-          auth: true, 
-          userDetails: payload
-        }))
-      } else {
-        const updated = {...localStore} 
-        updated.auth = true; 
-        localStorage.setItem(key, JSON.stringify(updated))
-        if(localStore.cart){
-          console.log("loading Cart from local storage")
-          dispatch(cartActions.setCart(localStore.cart));
-        }
-        if (localStore.wish){
-          console.log("loading Wishlist from local storage")
-          dispatch(wishActions.setWishlist(localStore.wish));
-        }
-        if(localStore.orders){
-          console.log("loading orders from local storage")
-          dispatch(ordersActions.setOrders(localStore.orders))
-        }
-      }
       navigate('/home');
     }
   }
@@ -83,44 +64,71 @@ export default function Auth( ) {
   return (
     <div className="P3 auth flex" >
 
-      {/* <div> */}
-        <div>
-          <h1 className="title" >{type}</h1>
+        <div className="flex">
+          <h1 className="title" style={{transform: "rotate(270deg)"}}  >{type}</h1>
           <div>
-              <img></img>
+              <img src="https://i.pinimg.com/564x/b4/1b/53/b41b53cb6b36265757a7404485e2acba.jpg" ></img>
           </div>
         </div>
       
         
-          {!login ? <SignupForm login={login} setLogin={setLogin} ></SignupForm> :
-          <div className="P3" style={{minWidth: "50%"}} >
-            <form id="loginForm" onSubmit={handleLogin} >
-                <label htmlFor="loginEmail" >Email</label><br/>
-                <input id="loginEmail" type="email"
-                onBlur={(event)=>handleValidInputs(event, "mail", setValid)}></input><br/>
-                <small>{valid.mail==false?"Please provide a valid emal.":""}</small><br/>
+          {!login ? 
+            <SignupForm login={login} setLogin={setLogin} ></SignupForm> :
+          // <LoginForm></LoginForm>
 
-                <label htmlFor="loginPassword">Password</label><br/>
-                <input id="loginPassword"
-                onBlur={(event)=>handleValidInputs(event, "pass", setValid)} ></input><br/>
-                <small>{valid.pass==false?"Please enter your password.":""}</small><br/>
+            <div className="P3" style={{minWidth: "50%"}} >
+              <form 
+              id="loginForm" 
+              onSubmit={handleLogin}>
+
+                <FormInput name="Email" id="loginEmail" type="email"  onblur={(event)=>handleValidInputs(event, "mail", setValid)} >
+                  <small>{valid.mail==false?"Please provide a valid emal.":""}</small>
+                </FormInput>
+
+                <FormInput name="Password" id="loginPassword" type="password"  onblur={(event)=>handleValidInputs(event, "pass", setValid)} >
+                  <small>{valid.pass==false?"Please enter your password.":""}</small>
+                </FormInput>
 
                 <small>{userFound==false?"We couldn't find this user, please rectify the information or create an account.":""}</small><br/>
 
-                <button  type="submit" htmlFor="loginForm" disabled={!allow}>Login</button>
-            </form>
-            <h4>{`${login ? "Don't":"Already"} have an account?`}</h4>
-            <button onClick={()=>{setLogin(!login)}}>{login ? "Sign Up" : "Log In"}</button>
-    
-          </div>
+                <button className="pill"  type="submit" htmlFor="loginForm" disabled={!allow}>Login</button>
+              </form>
+
+              <h4>{`${login ? "Don't":"Already"} have an account?`}</h4>
+              <button className="HeaderLink" onClick={()=>{setLogin(!login)}}>{login ? "Sign Up" : "Log In"}</button>
+      
+            </div>
           }
-
-          
-
-      {/* </div> */}
-
-
-
     </div>
   );
   };
+
+
+  // user to local: 
+//   const someUsers = [
+//     {
+//       auth: false,
+//     first: "Ximena",
+//     last: "Cu", 
+//     preferred: "Xim", 
+//     mail: "xim@mail.com", 
+//     pass: "a",
+//     bio: "bla bla bla bla", 
+//     tags: [
+//         "fantasy", "fiction", "horror"
+//     ],
+//     pk: 1
+//     },
+//     {
+//       auth: false,
+//       first: "Lucas",
+//       last: "Cu", 
+//       preferred: null, 
+//       mail: "luc@mail.com", 
+//       pass: "a",
+//       bio: null, 
+//       tags: [],
+//       pk: 2
+//     }
+//   ]
+// localStorage.setItem("users", JSON.stringify(someUsers))

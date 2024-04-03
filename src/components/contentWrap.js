@@ -1,19 +1,17 @@
+import { Outlet } from "react-router-dom";
+// Components
 import Header from "./header";
 import Footer from "./footer"
-import { Outlet } from "react-router-dom";
 
-export default function ContentWrap(props) {
+export default function ContentWrap() {
     const headerloggedLinks = ["About Us", "Contact", "Profile", "Cart", "Logout"];
     const section = "home"
 
     return (
       <>
-      {/* <div className="content"> */}
-        <Header links={headerloggedLinks} section={section}  ></Header>
-        {/* {props.children} */}
+        <Header links={headerloggedLinks} section={section}></Header>
         <Outlet/>
         <Footer></Footer>
-      {/* </div> */}
       </>
     );
   }

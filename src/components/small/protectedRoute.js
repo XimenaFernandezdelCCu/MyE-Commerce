@@ -1,9 +1,11 @@
-import { useSelector } from 'react-redux';
 import { Navigate, Route } from 'react-router-dom';
+import { getLocalInfo } from '../../utils';
+import { useSelector } from 'react-redux';
 
 export default function ProtectedRoute(props) {
-  const isAuthenticated = useSelector(state => state.auth.auth);
-  console.log("auth? ", isAuthenticated)
+
+  const reduxAuth = useSelector((state)=>state.auth.auth);
+  const isAuthenticated = reduxAuth;
 
   return (
     // <Route {...rest} render={(props) => (
