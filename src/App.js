@@ -3,7 +3,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ContentWrap from "./components/contentWrap";
 import Error from "./components/small/error";
 import ProtectedRoute from "./components/small/protectedRoute";
-import Land from './components/land';
+import Auth from "./components/auth";
+import LoginForm from "./components/small/loginForm";
+// import Land from './components/land';
 import Home from './components/home';
 import Profile from './components/profile';
 import Sales from "./components/sales";
@@ -19,13 +21,13 @@ const router = createBrowserRouter(
     children: [
       {path: '/', element: <Home/>},
       // {path:'/products/:id', element:<ProductView/>},
-      // {path: '/auth', element: <Land/>
-      //   // ,children: [
-      //   //   {path: '/auth/', element: <LoginForm/>},
-      //   //   {path: '/auth/signup', element:<SignupForm/> },
-      //   //   {path: '/auth/extraDetails', element:<ExtraDetailsForm/> }
-      //   // ]
-      // },
+      {path: '/auth', element: <Auth/>,
+        children: [
+          {path: '/auth/', element: <LoginForm/>},
+          // {path: '/auth/signup', element:<SignupForm/> },
+          // {path: '/auth/extraDetails', element:<ExtraDetailsForm/> }
+        ]
+      },
       {path: '/cart', element: <Sales/> },
       // {path: '/profile', element: <ProtectedRoute><Profile/></ProtectedRoute>,
       // // children: [
