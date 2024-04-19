@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 //Components
 import Header from "./header";
 import Footer from "./footer";
-// import Contact from "./contact";
+import Contact from "./small/contact";
 
 export default function ContentWrap() {
 
@@ -12,7 +12,7 @@ export default function ContentWrap() {
         <div className="content" >
           <Outlet/>  
         </div>
-        {/* <Contact></Contact> */}
+        <Contact></Contact>
         <Footer></Footer>
       </>
     );

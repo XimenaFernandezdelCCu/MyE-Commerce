@@ -2,7 +2,6 @@ import { useEffect, useContext, useState } from "react";
 import { HomeContext } from "../../context/homeContext";
 import { paginationArray, handleDeletefromWishlist } from "../../utils/utils";
 import { useSelector } from "react-redux"
-import { Link } from "react-router-dom";
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
@@ -18,6 +17,7 @@ import BrowseCard from "../reusable/browseCard";
 import Loader from "../reusable/loader";
 import Error from "../reusable/error";
 import BrowseModal from "./browseModal"
+import WishButton from "../reusable/wishButton";
 
 export default function Browse(){
     const reduxAuth = useSelector((state) => state.auth);
@@ -30,7 +30,7 @@ export default function Browse(){
 
     const navigate = useNavigate();
     const {data, setData, page, setFound, showModal, setShowModal}= useContext(HomeContext);
-    const [wishlistItems, setWishlistItems] = useState([]);
+    // const [wishlistItems, setWishlistItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     
@@ -88,28 +88,6 @@ export default function Browse(){
         }
     }
 
-    // function add2Wishlist(productId){
-    //     const id = localStorage.getItem("Marketfy_ActiveUser");
-    //     const url = "http://localhost:8080/wishlistItems";
-    //     const wishItem = {
-    //         "userId": id,
-    //         "productId": productId
-    //     }
-    //     postData(url,wishItem, (response)=>{
-    //         const newWishLink = response.data._links.self.href;
-    //         const newWishID = parseInt(newWishLink.split("/").pop());
-    //         const newWishlistItem = {
-    //             wishlistId: newWishID, 
-    //             product: {
-    //                 productId: productId
-    //             }
-    //         }
-    //         setWishlistItems((wishlistItems)=>[...wishlistItems, newWishlistItem] )
-    //     })
-
-        
-    // }
-
 
     return (
         <>
@@ -142,6 +120,7 @@ export default function Browse(){
                     : data[0] ?
                     data[page].map((book)=>
                     <BrowseCard book={book} key={book.pk}>
+                        <WishButton pk={book.pk}></WishButton>
                         {/* {isAuthenticated?
                         <> 
                         {wishlistItems.map((item)=>item.product.productId).includes(book.productId)?

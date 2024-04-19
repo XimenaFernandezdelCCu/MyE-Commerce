@@ -1,5 +1,8 @@
 import { useContext } from "react"
 import { CartContext } from "../context/cartContext"
+import { useSelector, useDispatch } from "react-redux";
+import { emptyCart, generateOrderId } from "../utils/utils";
+import mockData from "../mockData/items.json"
 // import axios from 'axios';
 // import { useAxiosPost } from "../../hooks/useAxiosPost";
 // import { AddItems2OrderAction } from "../../utils/responseActions";
@@ -11,12 +14,13 @@ import Loader from "./reusable/loader";
 import OrderDetails from "./small/orderDetails";
 import Payment from "./small/payment";
 import Shipping from "./small/shipping";
-// import '../../style/modal.css'
 
 export default function Checkout() {
     const [loader, setLoader]= useState(false);
     const {total, setCheckout, cartObj, cartLength}= useContext(CartContext);
-    // const {postData} = useAxiosPost();
+    const reduxAuth = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+
 
 
     function showLoader() {
@@ -27,41 +31,45 @@ export default function Checkout() {
         return () => clearTimeout(timeout);
     }
 
-    // function generateOrder() {
-    //     showLoader()
-    //     const id = localStorage.getItem("Marketfy_ActiveUser");
+    function generateOrder() {
+        showLoader()
+        const id = reduxAuth.id;
 
-    //     if (!isNaN(id) && id !== 0){
-    //         const url = "http://localhost:8080/orders";
-    //         const order = {
-    //             userId: id,
-    //             totalItems: cartLength,
-    //             total: total,
-    //             orderDate: new Date().toISOString()
-    //         }
-    //         axios.post(url, order)
-    //         .then(response => {
-    //             console.log("Response: ", response);
-    //             const newOrderLink = response.data._links.order.href;
-    //             const newOrderID = newOrderLink.split("/").pop();
-    //             addItems2Order(newOrderID);
-    //         }).catch(error => {
-    //             console.error("Oh no!", error)
-    //         }); 
-    //     }
-    // }
+        if (!isNaN(id) && id !== 0){
 
-    // function addItems2Order(orderId){
-    //     const url = "http://localhost:8080/AddOrderItems";
-    //     const orderItems = {
-    //         orderId: orderId, 
-    //         items: cartObj.map((it)=>{return {
-    //             productId: it.id,
-    //             qty: it.qty
-    //         }})
-    //     }
-    //     postData(url, orderItems, AddItems2OrderAction )
-    // }
+            const newId = generateOrderId(id);
+
+            const order = {
+                orderId: newId,
+                date: new Date().toISOString(),
+                totalItems: cartLength,
+                total: total,
+                products: cartObj.map((it)=>{
+                    return {
+                        productId: it.id,
+                        qty: it.qty, 
+                        author: mockData.find((book)=>book.pk == it.id).author, 
+                        title: mockData.find((book)=>book.pk == it.id).title
+                    }
+                })
+            }
+
+
+            const orders = JSON.parse(localStorage.getItem(`${id}_Orders`));
+            if(orders){
+                console.log("orders--: ", orders);
+                const updateOrders = orders.push(order);
+                console.log("updatded", updateOrders);
+                localStorage.setItem(`${id}_Orders`, JSON.stringify(orders));
+            } else {
+                localStorage.setItem(`${id}_Orders`, JSON.stringify([order]));
+            }
+            
+            emptyCart(dispatch)
+            window.location.href = '/profile/orders'
+
+        } 
+    }
     
     return (
         <div className="orangeBorderCard rounded m3 p3" >
@@ -107,7 +115,7 @@ export default function Checkout() {
             <hr/>
             <div className="flex justifyCenter" >
                 <button
-                // onClick={generateOrder}
+                onClick={generateOrder}
                 >PAY {total}</button>
             </div>
                      

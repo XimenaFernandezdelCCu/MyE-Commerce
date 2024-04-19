@@ -5,11 +5,11 @@ import { useEffect } from "react";
 
 
 export default function Auth(){
-    const reduxAuth = useSelector((state) => state.auth.auth);
-    const isAuthenticated = reduxAuth;
+    const reduxAuth = useSelector((state) => state.auth);
+    const isAuthenticated = reduxAuth.auth;
 
     useEffect(()=>{
-        if (isAuthenticated){
+        if (isAuthenticated && !isNaN(reduxAuth.id)){
             window.location.href="/profile"
         }
     },[])

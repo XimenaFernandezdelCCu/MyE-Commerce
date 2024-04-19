@@ -2,17 +2,20 @@
 //hooks
 // import { useAxiosPost } from '../../hooks/useAxiosPost';
 // import { loginAction } from '../../utils/responseActions';
-
+import { findUser } from '../../utils/utils';
 import { Link } from 'react-router-dom';
 //components
 import FormInput from "../reusable/formInput"
 import Loader from '../reusable/loader';
 import Error from '../reusable/error';
+import { useState } from 'react';
 
 export default function LoginForm(){
     // const {postData, loading, error } = useAxiosPost();
-    const url = 'http://localhost:8080/login';
-    let status;
+    // const url = 'http://localhost:8080/login';
+    // let status;
+    const [status, setStatus]= useState();
+    const [message, setMessage]= useState();
     // if (error){
     //     console.log("eeeeeeerrooooooooor")
     //     if (error.code != "ERR_NETWORK"){
@@ -26,11 +29,20 @@ export default function LoginForm(){
         event.preventDefault();
         //  Retrieve User Input: 
         const formData = new FormData(event.target);
-        const user = {
-            email : formData.get('loginEmail'), 
-            pass : formData.get('loginPassword')
+        const email = formData.get('loginEmail');
+        const pass = formData.get('loginPassword');
+
+        const response = findUser(email, pass)
+        console.log(response)
+        if(response.status == 200){
+            // log them in: 
+            localStorage.setItem("Marketfy_ActiveUser", response.userId);
+            window.location.href = '/'
+        } else {
+            setStatus(response.status);
+            setMessage(response.message);
         }
-        
+
         // postData(url, user, loginAction);        
     }   
 
@@ -63,7 +75,7 @@ export default function LoginForm(){
                     {/* <small>{valid.mail==false?"Please provide a valid emal.":""}</small> */}
                     {status == 400 && 
                         <div>
-                        {/* <small>{error.response.data}</small> */}
+                        <small>{message}</small>
                         </div>
                     }
                     </FormInput>
@@ -74,7 +86,7 @@ export default function LoginForm(){
                     {/* <small>{valid.pass==false?"Please enter your password.":""}</small> */}
                     {status == 401 && 
                         <div>
-                        {/* <small>{error.response.data}</small> */}
+                        <small>{message}</small>
                         </div>
                     }
                     </FormInput>
@@ -82,7 +94,8 @@ export default function LoginForm(){
 
                     {/* <small>{userFound==false?"We couldn't find this user, please rectify the information or create an account.":""}</small><br/> */}
 
-                    <button className="pill"  type="submit" htmlFor="loginForm" 
+                    <button  type="submit"
+                    //  htmlFor="loginForm" 
                     // disabled={!allow}
                     >Login</button>
                 </form>

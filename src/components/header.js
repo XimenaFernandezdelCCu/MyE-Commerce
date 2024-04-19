@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-// import { logoutAction } from "../utils/responseActions";
+import { handleLogout } from "../utils/utils";
 
 
 export default function Header(){
     const cartLength = useSelector((state) => state.cart.length);
-    const reduxAuth = useSelector((state) => state.auth.auth);
+    const reduxAuth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    const isAuthenticated = reduxAuth;
+    const isAuthenticated = reduxAuth.auth;
 
     return (
         <header className="flex wrapp p3 justifyCenter">
@@ -21,11 +21,11 @@ export default function Header(){
                     {cartLength>0 && <div className="notification flex justifyCenter">{cartLength}</div>}
                 </div>
 
-                { isAuthenticated ?
+                { isAuthenticated && !isNaN(reduxAuth.id) ?
                     <>
                     <Link to='/profile' className="link" >Profile</Link>
                     <a className="link" 
-                    // onClick={()=>logoutAction(dispatch)} 
+                    onClick={()=>handleLogout(dispatch)} 
                     >Logout</a>
                     </>
                 :

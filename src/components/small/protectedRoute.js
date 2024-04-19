@@ -1,11 +1,10 @@
 import { Navigate, Route } from 'react-router-dom';
-import { getLocalInfo } from '../../utils';
 import { useSelector } from 'react-redux';
 
 export default function ProtectedRoute(props) {
 
-  const reduxAuth = useSelector((state)=>state.auth.auth);
-  const isAuthenticated = reduxAuth;
+  const reduxAuth = useSelector((state)=>state.auth);
+  const isAuthenticated = reduxAuth.auth;
 
   return (
     // <Route {...rest} render={(props) => (
@@ -14,7 +13,7 @@ export default function ProtectedRoute(props) {
     //     : <Navigate to="/land" />
     // )} />
     <>
-    {isAuthenticated ?
+    {isAuthenticated && !isNaN(reduxAuth.id)   ?
         <>{props.children}</>
     : 
         <Navigate to="/" replace />

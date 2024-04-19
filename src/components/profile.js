@@ -1,63 +1,57 @@
-// import { useState } from "react";
-// import HiddenSec from "./small/hiddenSec";
-// import ProfileInfo from "./small/profileInfo";
-// import ProfileInfoCopy from "./small/profileInfoCopy";
-// import { useSelector } from "react-redux";
-// import users from '../mockData/users.json'
-// import Wishlist from "./small/wishlist";
-// import OrderHistory from "./orderHistory";
+import { useEffect } from "react"
+import { Link } from "react-router-dom"
+import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux"
+import avatar from '../imgs/avatar.jpg'
 
 
 
-// export default function Profile() {
-//   const [option, setOption]=useState("info");
+export default function Profile(props){
+    const reduxAuth = useSelector((state) => state.auth);
+    console.log("reduxAuth: ", reduxAuth);
+    const isAuthenticated = reduxAuth.auth;
 
-//   const authState = useSelector((state) => state.auth);
+    // const userLog = JSON.parse(localStorage.getItem(`${reduxAuth.id}_Log`));
+    const userExtra = JSON.parse(localStorage.getItem(`${reduxAuth.id}_Extra`));
+    const name = userExtra.preferred ?? userExtra.first;
 
-//   // PROVISIONAL:
-//   const user = authState.userDetails.pk == 0 ? users[1] : authState.userDetails;
-  
-//   const pref = user.preferred ? user.preferred : user.first; 
+    useEffect(()=>{
+        if (!isAuthenticated){
+            window.location.href="/auth"
+        }
+    },[])
 
-//   const name ="ximena";
-//     return (
-//       <div className="profile">
-//         <div className="profileHeader flex" >
-//           <div className="profileImg" ><img className="circular" style={{maxHeight:"20vh"}}
-//           src="https://i.pinimg.com/564x/7f/5c/ea/7f5cea2b706835e199e8ba2311fb1d7d.jpg" ></img></div>
-//           <div>
-//             <h1 className="title" >
-//               Welcome {pref}!</h1>
-//               <p>"It's the possibility of having a dream come true that makes life interesting." <br/>
-//               <strong>The Alchemist" by Paulo Coelho</strong> </p>
-//           </div>
-          
-//         </div>
 
-//         <div className="profileBody" >
-//           <ul>
-//             <button onClick={()=>setOption("info")} 
-//             className="pill">Profile Info</button>
-//             <button onClick={()=>setOption("edit")}
-//             className="pill"
-//             style={{alignSelf:"center"}}>Edit my Info</button>
-//             <button onClick={()=>setOption("orders")}
-//             className="pill">See Orders</button>
-//             {/* <button onClick={()=>setOption("info")} 
-//             className="pill">Whishlist</button> */}
-            
-//           </ul>
+    return (
+        <div>
+            <div >
+                <h1 className="title" >Welcome {name}!</h1>
 
-//           <HiddenSec state={option}>
-//             {option == "info" ? <ProfileInfo user={user} ></ProfileInfo> : 
-//               option == "edit" ? <ProfileInfoCopy setOption={setOption} ></ProfileInfoCopy> : 
-//               <OrderHistory></OrderHistory> 
-//             }
-//           </HiddenSec>
-//         </div>
+                <div className="flex justifyEvenly wrapp"> 
+                    <div className="m3"
+                    style={{
+                        height: "30vh"
+                        }} 
+                        > 
+                        <img style={{width:"auto", height:"100%", borderRadius: "50%"}}
+                        src={avatar} ></img>
+                    </div>
 
-//         <Wishlist></Wishlist>
+                    <ul className="flex wrapp justifyEvenly"
+                    style={{minWidth:"50%"}} >
 
-//       </div>
-//     );
-//   };
+                        <li className="right pillwhiteonOrange" ><Link to='/profile/' className="link" >User Details</Link></li>
+                        <li className="right pillwhiteonOrange"><Link to='/profile/edit' className="link" >Edit Profile</Link></li>
+                        <li className="right pillwhiteonOrange"><Link to='/profile/wishlist' className="link" >Wishlist</Link></li>
+                        <li className="right pillwhiteonOrange"><Link to='/profile/orders' className="link" >Order History</Link></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <Outlet/>
+            </div>
+
+        </div>
+    )
+}

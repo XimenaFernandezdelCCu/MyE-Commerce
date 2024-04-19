@@ -3,7 +3,7 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 // import { createAccountAction } from "../../utils/responseActions";
-
+import { generateUserId } from "../../utils/utils";
 //components
 import FormInput from "../reusable/formInput"
 import Error from "../reusable/error";
@@ -11,24 +11,35 @@ import Loader from "../reusable/loader";
 
 export default function SignupForm() {
     // const { postData, loading, data, error } = useAxiosPost();
-    const url = 'http://localhost:8080/users';
 
     function handleSignup(event) {
         event.preventDefault();
+        const newId = generateUserId();
         //  Retrieve User Input: 
         const formData = new FormData(event.target);
         const email = formData.get('signupEmail');
         const password = formData.get('signupPass');
-        const newUser = {
-            email: email,
-            pass: password,
-            first: formData.get('signupFirst'),
-            last: formData.get('signupLast'),
-            role: "user",
-            active: false
+        const userLog = {
+            pk: newId, 
+            email: email, 
+            password: password
         }
-        //Send request
-        // postData(url, newUser, createAccountAction);
+        const userExtra = {
+            first: formData.get('signupFirst'), 
+            last: formData.get('signupLast')
+        }        
+
+        // add to list of users:
+        let users=[];
+        const existing = localStorage.getItem("Users_Marketfy");
+        users.push(existing, newId)
+        localStorage.setItem("Users_Marketfy", users);
+        // add user details:
+        localStorage.setItem(`${newId}_Log`, JSON.stringify(userLog));
+        localStorage.setItem(`${newId}_Extra`, JSON.stringify(userExtra));
+        // log them in: 
+        localStorage.setItem("Marketfy_ActiveUser", newId);
+        window.location.href = '/'
     }
 
     return (
@@ -111,7 +122,7 @@ export default function SignupForm() {
                         <hr />
                     </div>
 
-                    <button className="pill" type="submit"
+                    <button type="submit"
                     // disabled={!allow}
                     >
                         Create Account
