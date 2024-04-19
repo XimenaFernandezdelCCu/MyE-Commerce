@@ -11,19 +11,9 @@ import Error from '../reusable/error';
 import { useState } from 'react';
 
 export default function LoginForm(){
-    // const {postData, loading, error } = useAxiosPost();
-    // const url = 'http://localhost:8080/login';
-    // let status;
     const [status, setStatus]= useState();
     const [message, setMessage]= useState();
-    // if (error){
-    //     console.log("eeeeeeerrooooooooor")
-    //     if (error.code != "ERR_NETWORK"){
-    //         status = error.response.status ?? null;
-    //         console.log("status: ", status)
-    //     }
-    // }
-
+ 
 
     function handleLogin(event){
         event.preventDefault();
@@ -43,7 +33,6 @@ export default function LoginForm(){
             setMessage(response.message);
         }
 
-        // postData(url, user, loginAction);        
     }   
 
   

@@ -3,13 +3,6 @@
 // inputs: name, id, type, onblur, value, placeholder
 export default function FormInput(props){
 
-    // const style={
-    //     display: "flex",
-    //     justifyContent: "space-between",
-    //     padding:" 0 5%", 
-    //     marginBottom: "2%"
-    // }
-
     return(
         <div>
             <div className="formInput" >

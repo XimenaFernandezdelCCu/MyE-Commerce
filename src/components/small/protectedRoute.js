@@ -7,11 +7,7 @@ export default function ProtectedRoute(props) {
   const isAuthenticated = reduxAuth.auth;
 
   return (
-    // <Route {...rest} render={(props) => (
-    //   isAuthenticated
-    //     ? <Component {...props} />
-    //     : <Navigate to="/land" />
-    // )} />
+    
     <>
     {isAuthenticated && !isNaN(reduxAuth.id)   ?
         <>{props.children}</>

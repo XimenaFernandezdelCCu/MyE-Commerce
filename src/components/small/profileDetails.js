@@ -1,11 +1,8 @@
 import Detail from "../reusable/detail";
-import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux"
 
-// import axios from 'axios';
 import { Link } from "react-router-dom"
-// import { useAxiosGet } from "../../hooks/useAxiosGet";
 import Loader from "../reusable/loader";
 import Error from "../reusable/error";
 import { detailOptions, getDetails } from "../../utils/utils";

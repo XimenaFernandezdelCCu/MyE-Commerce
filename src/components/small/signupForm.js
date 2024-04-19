@@ -1,8 +1,5 @@
 
-// import { useAxiosPost } from "../../hooks/useAxiosPost";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
-// import { createAccountAction } from "../../utils/responseActions";
 import { generateUserId } from "../../utils/utils";
 //components
 import FormInput from "../reusable/formInput"

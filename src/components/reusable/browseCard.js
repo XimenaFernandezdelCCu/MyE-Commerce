@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import anonymousBook from '../../imgs/anonymousBook.jpg'
 import { useContext } from 'react';
 import { HomeContext } from '../../context/homeContext';
-import WishButton from './wishButton';
 
 
 export default function BrowseCard({book, children, home}){

@@ -3,12 +3,7 @@
 // inputs: name, id, type, onblur
 export default function Detail(props){
 
-    // const style={
-    //     display: "flex",
-    //     justifyContent: "space-between",
-    //     padding:" 0 5%", 
-    //     marginBottom: "2%"
-    // }
+
 
     return(
         <div>
@@ -20,12 +15,7 @@ export default function Detail(props){
                 </label>
 
                 <p>{props.value}</p>
-                {/* <input 
-                name={props.id}
-                id={props.id}
-                onBlur={props.onblur}
-                placeholder={props.name} 
-                type={props.type}></input> */}
+                
             </div>
 
             {props.children}

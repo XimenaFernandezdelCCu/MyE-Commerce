@@ -1,12 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import { HomeContext } from "../../context/homeContext";
-import { paginationArray, handleDeletefromWishlist } from "../../utils/utils";
+import { paginationArray } from "../../utils/utils";
 import { useSelector } from "react-redux"
-
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-// import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom'
 import mockData from '../../mockData/items.json';
 
 //components
@@ -28,30 +23,14 @@ export default function Browse(){
     console.log("redux cart", reduxCart);
     const userId = isAuthenticated ? reduxAuth.id : null;
 
-    const navigate = useNavigate();
     const {data, setData, page, setFound, showModal, setShowModal}= useContext(HomeContext);
     // const [wishlistItems, setWishlistItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     
     useEffect(() => {
-
-        console.log("data_ ", mockData);
-
         setFound(mockData.length);
         setData(paginationArray(mockData.sort(()=>Math.random()-.5)))
-
-        // -------------------------------if user is autenticated, get their wishlists. 
-
-        // if (userId) {
-        //     const url = `http://localhost:8080/productsInWishlistByUserId?id=${userId}`
-        //     fetchDataWishlist(url, (response)=>{
-        //         if (Array.isArray(response.data)){
-        //             setWishlistItems(response.data);
-        //         }
-        //     });
-        // }
-
     }, []);
 
   
@@ -121,41 +100,6 @@ export default function Browse(){
                     data[page].map((book)=>
                     <BrowseCard book={book} key={book.pk}>
                         <WishButton pk={book.pk}></WishButton>
-                        {/* {isAuthenticated?
-                        <> 
-                        {wishlistItems.map((item)=>item.product.productId).includes(book.productId)?
-                            <button
-                            // remove from wishlist 
-                            onClick={()=>handleDeletefromWishlist(
-                                wishlistItems.find((item)=>item.product.productId ==book.productId).wishlistId, 
-                                setWishlistItems)}
-                            >
-                                <FontAwesomeIcon icon={solidHeart} />
-                            </button>
-
-                        :
-                            <button
-                            // add to wishlist 
-                            onClick={()=>add2Wishlist(book.productId)}
-                            >
-                                <FontAwesomeIcon icon={regularHeart} />
-                            </button>
-                        
-                        }
-                        </>
-                        :
-                        <button
-                            // ask to log in to add to wishlist
-                            onClick={modal}
-                        >
-                            <FontAwesomeIcon icon={regularHeart} />
-                        </button>
-                        }
-
-                        <div>
-                            <button onClick={()=>navigate(`/products/${book.productId}`)}  >See More Details</button>
-                        </div> */}
-
                     </BrowseCard>
                     )
                     :

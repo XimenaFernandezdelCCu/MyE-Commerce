@@ -26,16 +26,12 @@ export default function ProfileOrders(){
             setData(data)
 
         }
-        // if(!isNaN(id) && id !== 0){
-        //     const url = `http://localhost:8080/ordersByUserId?userId=${id}`
-        //     fetchData(url, setttt )
-        // }
+      
+        
         
     }, []);
-    // function setttt(response){
-    //     setDbData(response.data);
-    //     setData(response.data)
-    // }
+
+    
 
     console.log("data: ", data);
 
