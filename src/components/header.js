@@ -1,43 +1,39 @@
-import {Link} from "react-router-dom"
-import {useState } from "react";
-import '../style/headerStyle.css'
-import { useDispatch, useSelector } from "react-redux";
-import { handleLogout } from "../utils";
+import { Link } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+// import { logoutAction } from "../utils/responseActions";
 
-export default function Header({links, section}) {
-  const dispatch = useDispatch();
-  const mail = localStorage.getItem("UserMail");
-  const cartLength = useSelector((state) => state.cart.cartItems.length);
 
-  
+export default function Header(){
+    const cartLength = useSelector((state) => state.cart.length);
+    const reduxAuth = useSelector((state) => state.auth.auth);
+    const dispatch = useDispatch();
+    const isAuthenticated = reduxAuth;
 
-  return (
-    <div className="header" > 
-      <div className="headerk">
-          <h1 className="title" >MARKETFY</h1>
-          <ul> 
-              {/* {links.map((link, index) => 
-                  // <button key={index} 
-                  // // onClick={()=>{navigate('/cart');}} 
-                  // >{link}</button>
-                  <Link to='/cart' key={index}>{link}</Link>
-              )
-              } */}
-              <Link to='/home' className="HeaderLink">Shop</Link>
-              <div style={{position:"relative"}} >
-                {cartLength>0 ? <div className="notification">{cartLength}</div>:""}
-                <Link to='/cart' className="HeaderLink" style={{marginRight:"2vw"}} >Cart</Link>
-              </div>
-              <Link to='/profile' className="HeaderLink">Profile</Link>
-              <Link  to='/profile'className="HeaderLink"
-              onClick={()=>handleLogout(dispatch, mail)}
-              >Logout</Link>
-          </ul>
-      </div>
-      <div className="headerRectangle" >
-          {section}
-      </div>
+    return (
+        <header className="flex wrapp p3 justifyCenter">
+            <h1 className="title" >MARKETFY</h1>
 
-    </div>
-  );
-  };
+            <div className="flex justifyEvenly" style={{width:"80%"}} >
+                <Link to='/' className="link" >Shop</Link>
+
+                <div className="flex">
+                    <Link to='/cart' className="link right" >Cart</Link>
+                    {cartLength>0 && <div className="notification flex justifyCenter">{cartLength}</div>}
+                </div>
+
+                { isAuthenticated ?
+                    <>
+                    <Link to='/profile' className="link" >Profile</Link>
+                    <a className="link" 
+                    // onClick={()=>logoutAction(dispatch)} 
+                    >Logout</a>
+                    </>
+                :
+                    <>
+                    <Link to='/auth' className="link" >Login</Link>
+                    </>
+                }
+            </div>
+        </header>
+    )
+}

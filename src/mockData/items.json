@@ -1,7 +1,7 @@
 [
     {
         "title": "Game of Thrones1",
-        "author": "George RR Martin", 
+        "author": "Marry Shelley", 
         "synapsis": "bla bla bla nlallwj", 
         "price": 100, 
         "stock": 2, 
@@ -14,7 +14,7 @@
     },
     {
         "title": "Game of Thrones2",
-        "author": "George RR Martin", 
+        "author": "Mark Z. Danielewsky", 
         "synapsis": "bla bla bla nlallwj", 
         "price": 90, 
         "stock": 2, 
@@ -26,8 +26,8 @@
         "pk": 2
     },
     {
-        "title": "Game of Thrones3",
-        "author": "George RR Martin", 
+        "title": "Salem's Lot",
+        "author": "Stephen King", 
         "synapsis": "bla bla bla nlallwj", 
         "price": 80, 
         "stock": 2, 
@@ -39,8 +39,8 @@
         "pk": 3
     },
     {
-        "title": "Game of Thrones4",
-        "author": "George RR Martin", 
+        "title": "Pet Sematary",
+        "author": "Stephen King", 
         "synapsis": "bla bla bla nlallwj", 
         "price": 70, 
         "stock": 2, 

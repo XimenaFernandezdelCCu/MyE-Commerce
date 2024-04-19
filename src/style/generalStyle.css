@@ -32,6 +32,7 @@
 .flexcol{
     display: flex;
     flex-direction: column;
+    align-items: center;
     /* justify-content: center; */
 }
 /* --------------------------------- */
@@ -241,7 +242,8 @@ button:hover{
 }
 
 #loginForm{
-    padding: 10%;
+    /* padding: 10%; */
+    width: 100%;
 }
 
 #editPersonalInfo{
@@ -307,6 +309,7 @@ button:hover{
 .formInput{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0 5%;
     margin-bottom: 2%;
 }

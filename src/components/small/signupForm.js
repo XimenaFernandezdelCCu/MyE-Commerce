@@ -9,7 +9,7 @@ import {ValidationContext} from "../../context/ValidationProvider";
 // Router 
 import { useNavigate } from 'react-router-dom';
 //functions
-import { handleValidInputs, activeUserToRedux } from "../../utils";
+import { handleValidInputs, activeUserToRedux, add2LocalStore } from "../../utils";
 
 export default function SignupForm({login, setLogin}) {
     //State 
@@ -20,14 +20,13 @@ export default function SignupForm({login, setLogin}) {
     // Redux
     const dispatch = useDispatch();
     const reduxAuth = useSelector((state)=>state.auth);
-    console.log("redux", reduxAuth);
     // Router
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
     // Ref for email validation 
     let pass1 = useRef();
     let pass2 = useRef();
-    
+    //Get Users from DB (local)
     let localStoreUsers = JSON.parse(localStorage.getItem("users")); 
 
     let handlePasswordMatch = ()=>{
@@ -45,7 +44,13 @@ export default function SignupForm({login, setLogin}) {
         event.preventDefault();
         if (passwordMatch){
             
-            const pk = localStoreUsers.length+1;
+            let pk;
+            if(!localStoreUsers){
+                pk= 1;
+                localStoreUsers=[];
+            } else {
+                pk = localStoreUsers.length+1;
+            }
             
             //Retrieve Input
             const formData = new FormData(event.target);
@@ -65,7 +70,7 @@ export default function SignupForm({login, setLogin}) {
             if(localStoreUsers.length){
                 localStoreUsers.push(newUser)
             } else {
-                localStoreUsers = [newUser]
+                localStoreUsers = [{...newUser}]
             }
             
             localStorage.setItem("users", JSON.stringify(localStoreUsers));
@@ -77,29 +82,33 @@ export default function SignupForm({login, setLogin}) {
     const handlesignupSave = (event)=>{
         event.preventDefault();
         const formData = new FormData(event.target);
+
+        //Get userDetails from "create Account" form saved in redux and add the new info. 
         const completeUser = {
             ...reduxAuth.userDetails,
             auth: true,
             preferred: formData.get('signupPreferred'), 
             bio: formData.get('signupBio')  
         }
-        activeUserToRedux(completeUser, dispatch);
         //Add to DB (local Storage)
         let localStoreUsers = JSON.parse(localStorage.getItem("users")); 
         let activeUserIndex = localStoreUsers.findIndex((user)=>user.pk==reduxAuth.userDetails.pk);
         localStoreUsers[activeUserIndex]=completeUser;
         localStorage.setItem("users", JSON.stringify(localStoreUsers));
+        // add2LocalStore(reduxAuth, completeUser )
 
+        activeUserToRedux(completeUser, dispatch);
+        // log in 
         navigate('/home');
     } 
 
     const handlesignupLog = ()=>{
-
+        add2LocalStore(reduxAuth, {auth: true} );
         navigate('/home');
     }
 
     return (
-        <div>
+        <div style={{minWidth: "60%"}} >
             {!createAccount ?  
                 <form onSubmit={handleCreateAccount}>
                 <div>

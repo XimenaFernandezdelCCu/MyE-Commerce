@@ -5,6 +5,7 @@ export default function Modal (props) {
         <div className="backdrop" 
         id="Modal"
         onClick={props.clickBackdrop} >
+            
             <div className="modal" >
                 <button onClick={props.clickBackdrop} className='circular x' >x</button>
 

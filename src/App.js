@@ -9,18 +9,31 @@ import Profile from './components/profile';
 import Cart from './components/cart';
 import ProductDetails from "./components/productDetails";
 // Style
-import "./style/generalStyle.css"
+import "./style/index.css"
 
 const router = createBrowserRouter(
   [
     {path: '/', element: <ContentWrap/>, 
     errorElement: <Error/>,
     children: [
-      {path: '/', element: <Land/>},
-      {path: '/home', element: <ProtectedRoute><Home/></ProtectedRoute>},
-      {path: '/profile', element: <ProtectedRoute><Profile/></ProtectedRoute> },
-      {path: '/cart', element: <ProtectedRoute><Cart/></ProtectedRoute> },
-      {path: '/products/:id', element: <ProtectedRoute><ProductDetails/></ProtectedRoute> }
+      {path: '/', element: <Home/>},
+      // {path:'/products/:id', element:<ProductView/>},
+      {path: '/auth', element: <Land/>, 
+        // children: [
+        //   {path: '/auth/', element: <LoginForm/>},
+        //   {path: '/auth/signup', element:<SignupForm/> },
+        //   {path: '/auth/extraDetails', element:<ExtraDetailsForm/> }
+        // ]
+      },
+      {path: '/cart', element: <Cart/> },
+      {path: '/profile', element: <ProtectedRoute><Profile/></ProtectedRoute>,
+      // children: [
+      //   {path: '/profile/', element: <ProfileDetails/>},
+      //   {path: '/profile/edit', element:<ProfileEdit/>},
+      //   {path: '/profile/wishlist', element:<ProfileWishlist/> },
+      //   {path: '/profile/orders', element:<ProfileOrders/> },
+      // ]
+      },
     ]}
   ]
 );

@@ -13,22 +13,25 @@ export default function Searchbar ({searchBy, setSearchBy, handleSearch}) {
         <div className="flex searchbar">
 
             <p>Search by: </p>
-        
+
+            {/* the switch changes the state of Searchby between name and price  */}
             <Switch title={searchBy} onChange={handleToggle} ></Switch>
            
             
 
-            <form onSubmit={handleSearch} className='flex'
+            <form 
+            onSubmit={handleSearch} 
+            className='flex'
             style={{
                 borderRadius: "60px", 
                 width: "40%"
-            }}  >
-                <input type="text" id="itemSeach" 
-                style={{
-                    borderRadius: "60px"
-                }}
-                placeholder='Frankenstein...'
-                ></input>
+            }}>
+                <input 
+                type="text" 
+                id="itemSeach" 
+                style={{borderRadius: "60px"}}
+                placeholder={`Search of a book ${searchBy}...`}
+                />
                 <button type="submit" htmlFor="itemSearch" ><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
             </form>
 

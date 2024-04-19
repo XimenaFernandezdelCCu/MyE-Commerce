@@ -1,8 +1,7 @@
 /* Contains Login */
 
 // redux
-import { useDispatch } from "react-redux";
-import { authActions, cartActions, wishActions, ordersActions } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
 // Router 
 import { useNavigate } from 'react-router-dom';
 import { useState,  useContext } from "react";
@@ -14,7 +13,7 @@ import FormInput from "./formInput";
 import {ValidationContext} from "../../context/ValidationProvider";
 //
 import usersData from "../../mockData/users.json"
-import { handleValidInputs, getLocalInfo, activeUserToRedux, handleLogin } from "../../utils";
+import { handleValidInputs, activeUserToRedux, add2LocalStore } from "../../utils";
 
 
 export default function Auth( ) {
@@ -26,6 +25,8 @@ export default function Auth( ) {
   const [userFound, setUserFound]=useState(null);
   // Redux
   const dispatch = useDispatch();
+  const reduxAuth = useSelector((state)=>state.auth);
+
   // Router
   const navigate = useNavigate();
   // Users DB
@@ -47,19 +48,42 @@ export default function Auth( ) {
     // find user in JSON 
     // const userDetails = usersData.find((user)=>user.mail === userMail && user.pass === userPass);
     // find user in Local Storage
-    const activeUser = localStoreUsers.find((user)=>user.mail === userMail && user.pass === userPass)
+    if(localStoreUsers){
+      console.log("localStoreUsers1: ", localStoreUsers)
+      const activeUser = localStoreUsers.find((user)=>user.mail === userMail && user.pass === userPass)
+      console.log("activeUser1: ", activeUser)
 
-    if(!activeUser || !userMail || !userPass ){
+      if(!activeUser || !userMail || !userPass ){
+        setUserFound(false);
+      } else{
+        // Add User to Redux
+        activeUserToRedux(activeUser, dispatch);
+  
+        // add2LocalStore(reduxAuth, {auth: true});
+        const completeUser = {
+          ...activeUser,
+          auth: true
+        }
+        console.log("complete usrr: ", completeUser)
+        console.log("localStoreUSers2: ", localStoreUsers);
+
+        // let localStoreUsers = JSON.parse(localStorage.getItem("users")); 
+        let activeUserIndex = localStoreUsers.findIndex((user)=>user.pk==reduxAuth.userDetails.pk);
+        console.log("indeX:", activeUserIndex);
+        localStoreUsers[activeUserIndex]=completeUser;
+        console.log("localStoreUSers : ", localStoreUsers)
+        localStorage.setItem("users", JSON.stringify(localStoreUsers));
+  
+        localStorage.setItem("UserMail", activeUser.mail);
+  
+        navigate('/home');
+      }
+    } else {
       setUserFound(false);
-    } else{
-      // Add User to Redux
-      activeUserToRedux(activeUser, dispatch);
-
-      localStorage.setItem("UserMail", activeUser.mail);
-
-      navigate('/home');
     }
+
   }
+  console.log("land")
 
   return (
     <div className="P3 auth flex" >
@@ -76,7 +100,7 @@ export default function Auth( ) {
             <SignupForm login={login} setLogin={setLogin} ></SignupForm> :
           // <LoginForm></LoginForm>
 
-            <div className="P3" style={{minWidth: "50%"}} >
+            <div className="P3 flexcol" style={{minWidth: "60%"}} >
               <form 
               id="loginForm" 
               onSubmit={handleLogin}>
