@@ -1,4 +1,4 @@
-.react-switch-checkbox {
+/* .react-switch-checkbox {
     height: 0;
     width: 0;
     visibility: hidden;
@@ -35,7 +35,7 @@
   }
 
   .react-switch-checkbox:checked + .react-switch-label {
-    background: var(--green); /* Change background color of the label when checkbox is checked */
+    background: var(--green); 
   }
   
   .react-switch-checkbox:checked + .react-switch-label .react-switch-button {
@@ -44,9 +44,9 @@
   }
 
   .react-switch-checkbox:checked + .react-switch-label .react-switch-label-text {
-    margin-left: 10px; /* Adjust the value based on the width of your button */
+    margin-left: 10px; 
   }
   
   .react-switch-label:active .react-switch-button {
     width: 60px;
-  }
+  } */

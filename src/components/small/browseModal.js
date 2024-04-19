@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 // import { handleAdd2Wishlist, addItem2Cart } from "../../utils"
+import { add2Cart } from "../../utils/utils";
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faCartPlus} from '@fortawesome/free-solid-svg-icons';
@@ -35,12 +36,10 @@ export default function BrowseModal({book}){
             </div>
 
             <div >
-                <button 
-                type="submit" 
-                
-                // onClick={()=>{addItem2Cart(dispatch, book.pk,  userDetails.mail)}}
-                    // style={{zIndex: "100"}}
-                ><FontAwesomeIcon icon={faCartPlus} /></button>
+                <button
+                    onClick={(event) => {event.stopPropagation(); add2Cart(book.pk, dispatch)}}
+                    ><FontAwesomeIcon icon={faCartPlus} />
+                </button>
 
                 <button 
                 onClick={handleMoreDetails}

@@ -1,11 +1,11 @@
 import { cartActions } from "../store";
-// import axios from "axios";
+// // import axios from "axios";
 
 
-// export function getCookie(name) {
-//     const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-//     return cookieValue ? cookieValue.pop() : '';
-// }
+// // export function getCookie(name) {
+// //     const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+// //     return cookieValue ? cookieValue.pop() : '';
+// // }
 
 //-----------------------------
 // creates an array to handle pagination
@@ -18,7 +18,7 @@ export function paginationArray(data, num = 9) {
     return arr;
 };
 
-//-----------------------------
+// //-----------------------------
 // Cart *
 export function add2Cart(id, dispatch){
     if (id!=0){
@@ -83,48 +83,48 @@ export function emptyCart(dispatch){
     
 }
 
-// adds the field Qty and ItemTotal to the books array 
-export function addQtytoData(dbData, cartObj) {
-    const qtyMap = {};
-    for (const item of cartObj) {
-        qtyMap[item.id] = item.qty;
-    }
-    for (const item of dbData) {
-        const qtyToAdd = qtyMap[item.productId];
-        const qty = qtyToAdd;
-        const itemTotal = (item.price * qty).toFixed(2);
-        item.qty = qty;
-        item.itemTotal = itemTotal;
-    }
-    return dbData;
-}
-
-//-----------------------------
-//DEV convert array to object details 
-export function convert2Details(array) {
-    return array.map((arr) => {
-        const book = {
-            user_id: arr[0],
-            email: arr[1],
-            first: arr[2],
-            last: arr[3],
-            preferred: arr[4],
-            bio: arr[5],
-            tags: arr[6]
-        };
-        return book;
-    });
-}
-
-// ---------------------------
-// export function handleDeletefromWishlist(id, setDbData){
-//     const url = `http://localhost:8080/wishlistItems/${id}`
-//     axios.delete(url)
-//     .then( response => {
-//         console.log("Response Data: ", response);
-//     })
-//     setDbData((dbData)=>dbData.filter((item)=>item.wishlistId != id));
+// // adds the field Qty and ItemTotal to the books array 
+// export function addQtytoData(dbData, cartObj) {
+//     const qtyMap = {};
+//     for (const item of cartObj) {
+//         qtyMap[item.id] = item.qty;
+//     }
+//     for (const item of dbData) {
+//         const qtyToAdd = qtyMap[item.productId];
+//         const qty = qtyToAdd;
+//         const itemTotal = (item.price * qty).toFixed(2);
+//         item.qty = qty;
+//         item.itemTotal = itemTotal;
+//     }
+//     return dbData;
 // }
+
+// //-----------------------------
+// //DEV convert array to object details 
+// export function convert2Details(array) {
+//     return array.map((arr) => {
+//         const book = {
+//             user_id: arr[0],
+//             email: arr[1],
+//             first: arr[2],
+//             last: arr[3],
+//             preferred: arr[4],
+//             bio: arr[5],
+//             tags: arr[6]
+//         };
+//         return book;
+//     });
+// }
+
+// // ---------------------------
+// // export function handleDeletefromWishlist(id, setDbData){
+// //     const url = `http://localhost:8080/wishlistItems/${id}`
+// //     axios.delete(url)
+// //     .then( response => {
+// //         console.log("Response Data: ", response);
+// //     })
+// //     setDbData((dbData)=>dbData.filter((item)=>item.wishlistId != id));
+// // }
 
 // ----------- 
 export function validateRawCart(arr, dispatch) {
@@ -158,4 +158,4 @@ export function cleanRawCart(arr){
     return arr.filter(item => Number.isInteger(item) && item !== 0);
 }
 
-//------------------------------------
+// //------------------------------------
